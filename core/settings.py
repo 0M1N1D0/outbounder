@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'campanias', # app campanias
     'core', # app core
-    'campanias.apps.CampaniasConfig' # app campanias
+    'formulario', # app formulario 
 ]
 
 MIDDLEWARE = [

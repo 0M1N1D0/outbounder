@@ -1,9 +1,5 @@
 
 from django.db import models
-from django.utils import timezone
-from datetime import datetime
-
-from pkg_resources import require
 
 # Create your models here.
 
@@ -34,13 +30,18 @@ class Contacto(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     telefono = models.SmallIntegerField(null=True)
-
     
     campania = models.ManyToManyField(Campania)
 
     def __str__(self):
         return self.nombres
 
-    
+
+# class RegistrosNoExitoso(models.Model):
+#     descripcion = models.TextField()
+
+
+# class RegistrosNoExitoso(models.Model):
+#     descripcion = models.BooleanField(default=False)
 
 
