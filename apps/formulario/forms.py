@@ -1,6 +1,6 @@
 
 from django import forms
-from campanias.models import Contacto
+from apps.campanias.models import Contacto
 
 class ContactoForm(forms.ModelForm):
     # nombres = forms.CharField(max_length=200)

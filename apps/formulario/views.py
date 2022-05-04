@@ -7,6 +7,9 @@ def index(request):
     return render(request, 'formulario/index.html', context=context)
 
 
+# ******************************************************
+# VISTA DE FORMULARIO
+# ******************************************************
 from .forms import ContactoForm
 
 def get_contacto(request):
