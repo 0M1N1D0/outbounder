@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core', # app core
-    'apps.campanias.apps.CampaniasConfig', # app campanias
-    'apps.formulario.apps.FormularioConfig', # app formulario 
+    'campanias.apps.CampaniasConfig', # app campanias
+    'formulario.apps.FormularioConfig', # app formulario 
+
+    'django_extensions', # extensiones para comando runscript
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,6 @@
 
 from django import forms
-from apps.campanias.models import Contacto
+from campanias.models import Contacto
 
 class ContactoForm(forms.ModelForm):
     # ****************************************************
@@ -27,6 +27,6 @@ class ContactoForm(forms.ModelForm):
             'apellido_materno': forms.TextInput(attrs={'class': 'form-control'}),
             'descuento': forms.NumberInput(attrs={'class': 'form-control'}),
             'telefono': forms.NumberInput(attrs={'class': 'form-control'}),
-            'campania': forms.Select(attrs={'class': 'form-control'}),
+            'campania': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
 
