@@ -31,7 +31,8 @@ with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder
         # como row es una lista, se pasa el elemento a i para agregarlo normal y que no se agregue como lista
         i = row[0]
         cursor.execute(
-            'INSERT INTO campanias_estado(nombre, fecha_creacion, fecha_modificacion) VALUES(%s, %s, %s)', (i, dt.now(), dt.now())
+            # no importa el orden
+            'INSERT INTO campanias_estado(fecha_creacion, fecha_modificacion, nombre) VALUES(%s, %s, %s)', (dt.now(), dt.now(), i)
         )
     # # cursor.copy_from(f, 'campanias_estado', sep=',')
 
