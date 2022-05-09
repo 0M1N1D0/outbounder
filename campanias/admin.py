@@ -4,22 +4,43 @@ from .models import Cedi, Campania, Contacto, Estado
 
 # ***************** REGISTROS NORMALES *******************
 # admin.site.register(Estado)
-admin.site.register(Cedi)
-admin.site.register(Contacto)
+#admin.site.register(Cedi)
+# admin.site.register(Contacto)
 # admin.site.register(Estado)
 
 # ***************** REGISTROS CON CLASE *******************
+
 @admin.register(Campania)
 class CampaniaAdmin(admin.ModelAdmin):    
-    # list_display = ('nombre', 'cedis','fecha_creacion', 'fecha_modificacion')
-    list_filter = ('fecha_modificacion', )
+    list_display = ('nombre', 'display_cedis')
+    list_filter = ('nombre',)
     # fields = ['fecha_creacion', 'fecha_modificacion']
     readonly_fields = ('fecha_creacion', 'fecha_modificacion')
     search_fields = ['nombre', 'cedis']
+
+    # Edición de nombre de columna de "display_cedis" a "Cedis"
+    Campania.display_cedis.short_description = "Cedis"
 
 
 
 @admin.register(Estado)
 class EstadoAdmin(admin.ModelAdmin): 
-    list_display = ('nombre', 'fecha_creacion', 'fecha_modificacion')
+    list_display = ('nombre',)
+    readonly_fields = ('fecha_creacion', 'fecha_modificacion')
+    ordering = ('nombre',)
 
+
+@admin.register(Cedi)
+class CediAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'estado')
+    ordering = ('nombre',)
+
+
+
+@admin.register(Contacto)
+class ContactoAdmin(admin.ModelAdmin):
+    list_display = ('codigo_eo', 'nombres', 'apellido_paterno', 'descuento', 'display_campania')
+    search_fields = ['codigo_eo', 'descuento']
+
+    # Edición de nombre de columna de "display_cedis" a "Cedis"
+    Contacto.display_campania.short_description = 'Campaña'

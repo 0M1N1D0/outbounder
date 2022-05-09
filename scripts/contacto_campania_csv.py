@@ -22,28 +22,30 @@ cursor = conexion.cursor()
 
 # one = cursor.fetchone()
 # print(one)
-# FIN
+# FIN PRUEBA
 
-with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder\outbounder\archivos_csv\cedis_csv.csv') as f: 
+with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder\outbounder\archivos_csv\contactos_campania_csv.csv') as f: 
     reader = csv.reader(f)
     next(f) # skip the header
     # TODO: revisar si sólo se hace una vez: 
+
     # cursor.execute(
     #     #se asigna la columna estado_id como clave foránea
-    #     ''' ALTER TABLE campanias_cedi
-    #         ADD CONSTRAINT cons_cedi   
-    #         FOREIGN KEY (estado_id)
-    #         REFERENCES campanias_estado (nombre)
+    #     ''' ALTER TABLE campanias_contacto_campania
+    #         ADD PRIMARY KEY (id)   
     #     '''         
     # )
+
     for row in reader:
         # como row es una lista, se pasa el elemento a i para agregarlo normal y que no se agregue como lista
-        nombre = row[0]
-        estado = row[1]
+        contacto_id = row[0]
+        campania_id = row[1]
+
+        # la PK se autocompleta
         cursor.execute(
-            'INSERT INTO campanias_cedi(nombre, fecha_creacion, fecha_modificacion, estado_id) VALUES(%s, %s, %s, %s)', (nombre, dt.now(), dt.now(), estado)
+            'INSERT INTO campanias_contacto_campania(contacto_id, campania_id) VALUES(%s, %s)', (contacto_id, campania_id)
         )
-    # # cursor.copy_from(f, 'campanias_estado', sep=',')
+    
 
 
 conexion.commit()
