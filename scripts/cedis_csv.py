@@ -27,6 +27,7 @@ cursor = conexion.cursor()
 with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder\outbounder\archivos_csv\cedis_csv.csv') as f: 
     reader = csv.reader(f)
     next(f) # skip the header
+    
     # TODO: revisar si sólo se hace una vez: 
     # cursor.execute(
     #     #se asigna la columna estado_id como clave foránea
@@ -36,6 +37,7 @@ with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder
     #         REFERENCES campanias_estado (nombre)
     #     '''         
     # )
+
     for row in reader:
         # como row es una lista, se pasa el elemento a i para agregarlo normal y que no se agregue como lista
         nombre = row[0]

@@ -27,15 +27,7 @@ cursor = conexion.cursor()
 with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder\outbounder\archivos_csv\contactos_csv.csv') as f: 
     reader = csv.reader(f)
     next(f) # skip the header
-    # TODO: revisar si sólo se hace una vez: 
-    # cursor.execute(
-    #     #se asigna la columna estado_id como clave foránea
-    #     ''' ALTER TABLE campanias_contacto
-    #         ADD CONSTRAINT cons_contacto   
-    #         FOREIGN KEY (estado_id)
-    #         REFERENCES campanias_estado (nombre)
-    #     '''         
-    # )
+   
     for row in reader:
         # como row es una lista, se pasa el elemento a i para agregarlo normal y que no se agregue como lista
         codigo_eo = row[0]

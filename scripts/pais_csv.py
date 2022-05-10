@@ -22,9 +22,9 @@ cursor = conexion.cursor()
 
 # one = cursor.fetchone()
 # print(one)
-# FIN
+# FIN PRUEBA
 
-with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder\outbounder\archivos_csv\estados_csv.csv') as f: 
+with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder\outbounder\archivos_csv\paises_csv.csv') as f: 
     reader = csv.reader(f)
     next(f) # skip the header
     for row in reader:

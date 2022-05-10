@@ -1,8 +1,8 @@
 
-from django import forms
-from campanias.models import Contacto
+# from django import forms
+# from campanias.models import Contacto
 
-class ContactoForm(forms.ModelForm):
+# class ContactoForm(forms.ModelForm):
     # ****************************************************
     # EJEMPLO CON LA CLASE FORM
     # ****************************************************
@@ -16,17 +16,13 @@ class ContactoForm(forms.ModelForm):
     # ****************************************************
     # EJEMPLO CON LA CLASE MODELFORM
     # ****************************************************
-    class Meta:
-        model = Contacto
-        fields = ['nombres', 'apellido_paterno', 'apellido_materno', 'descuento', 'telefono', 'campania']
+    # class Meta:
+    #     model = Contacto
+    #     fields = ['nombre', 'campania']
 
-        # creando las clases de HTML para acceder con Bootstrap 
-        widgets = { 
-            'nombres': forms.TextInput(attrs={'class': 'form-control'}),
-            'apellido_paterno': forms.TextInput(attrs={'class': 'form-control'}),
-            'apellido_materno': forms.TextInput(attrs={'class': 'form-control'}),
-            'descuento': forms.NumberInput(attrs={'class': 'form-control'}),
-            'telefono': forms.NumberInput(attrs={'class': 'form-control'}),
-            'campania': forms.SelectMultiple(attrs={'class': 'form-control'}),
-        }
+    #     # creando las clases de HTML para acceder con Bootstrap 
+    #     widgets = { 
+    #         'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+    #         'campania': forms.SelectMultiple(attrs={'class': 'form-control'}),
+    #     }
 

@@ -27,21 +27,13 @@ cursor = conexion.cursor()
 with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder\outbounder\archivos_csv\contactos_campania_csv.csv') as f: 
     reader = csv.reader(f)
     next(f) # skip the header
-    # TODO: revisar si sólo se hace una vez: 
-
-    # cursor.execute(
-    #     #se asigna la columna estado_id como clave foránea
-    #     ''' ALTER TABLE campanias_contacto_campania
-    #         ADD PRIMARY KEY (id)   
-    #     '''         
-    # )
 
     for row in reader:
         # como row es una lista, se pasa el elemento a i para agregarlo normal y que no se agregue como lista
         contacto_id = row[0]
         campania_id = row[1]
 
-        # la PK se autocompleta
+        # sólo se ingresan manualmente los campos requeridos, la PK se autocompleta, 
         cursor.execute(
             'INSERT INTO campanias_contacto_campania(contacto_id, campania_id) VALUES(%s, %s)', (contacto_id, campania_id)
         )
