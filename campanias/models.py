@@ -48,7 +48,7 @@ class Contacto(models.Model):
     DESCUENTO_CHOICES = [
         ('20', '20'),
         ('25', '25'),
-        ('30', '35'),
+        ('30', '30'),
         ('35', '35'),
         ('40', '40'),
     ]
@@ -75,9 +75,6 @@ class Contacto(models.Model):
     sexo = models.CharField(max_length=2, choices = SEXO_CHOICES, default = 'M')
     fecha_nacimiento = models.DateField()
     total_puntos = models.IntegerField()
-    fecha_ultima_llamada = models.DateField()
-    codigo_ultima_llamada = models.CharField(max_length=100)
-    comentario = models.TextField()
 
     # campo ManyToMany
     campania = models.ManyToManyField(Campania)
@@ -126,7 +123,9 @@ class Resultado(models.Model):
     contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE)
     registro_no_exi = models.ForeignKey(RegistroNoExitoso, on_delete=models.CASCADE)
     registro_exi = models.ForeignKey(RegistroExitoso, on_delete=models.CASCADE)
+    comentario = models.TextField()
     remarcar = models.BooleanField()
+    ultima_interaccion = models.DateTimeField(auto_now_add=True)
 
 # class RegistrosNoExitoso(models.Model):
 #     descripcion = models.TextField()
