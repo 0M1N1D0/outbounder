@@ -1,7 +1,9 @@
 
-# from django.urls import path
-# from . import views
+from django.urls import path
+from . import views
 
-# urlpatterns = [
-#     path('', views.get_contacto, name='index'),
-# ]
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('submit/', views.submit, name='submit'),
+]
+

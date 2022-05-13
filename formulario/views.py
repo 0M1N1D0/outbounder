@@ -1,10 +1,14 @@
-# from unicodedata import name
-# from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render
+from campanias.models import Campania
 
 # Create your views here.
-# def index(request):
-#     context = {}
-#     return render(request, 'formulario/index.html', context=context)
+def index(request):
+    campanias = Campania.objects.all()
+    context = {'campania': campanias}
+    return render(request, 'formulario/index.html', context=context)
+
+def submit(request):
+    return render(request, 'formulario/submit.html')
 
 
 # ******************************************************
@@ -12,7 +16,7 @@
 # ******************************************************
 # from .forms import ContactoForm
 
-# def get_contacto(request):
+# def index(request):
 #     context={}
 #     if request.method == 'POST':
 #         form = ContactoForm(request.POST or None, request.FILES or None)

@@ -64,7 +64,7 @@ class Contacto(models.Model):
         ('F', 'F'),
     ]
 
-    num_dist = models.CharField(max_length=20, primary_key=True, unique=False)
+    num_dist = models.CharField(verbose_name='Número de distribuidor', max_length=20, primary_key=True, unique=False)
     nombre = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10, choices = DESCUENTO_CHOICES, default='20')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -85,7 +85,6 @@ class Contacto(models.Model):
 
     def __str__(self):
         return self.num_dist
-
 
 
 # EXITOSO_CHOICES = [
@@ -137,19 +136,49 @@ class RegistroNoExitoso(models.Model):
 
 
 class Resultado(models.Model):
+
     contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE)
     registro_no_exi = models.ForeignKey(RegistroNoExitoso, on_delete=models.CASCADE, null=True, blank=True)
     registro_exi = models.ForeignKey(RegistroExitoso, on_delete=models.CASCADE, null=True, blank=True)
     comentario = models.TextField()
     remarcar = models.BooleanField()
-    ultima_interaccion = models.DateTimeField(auto_now_add=True)
+    fecha_creacion = models.DateField(auto_now_add=True) 
+    ultima_interaccion = models.DateTimeField(auto_now=True)
     
    # campania = Contacto.objects.all().select_related('campania')
 
     def __str__(self):
         # se transforma a str() porque si no devuelve un error 
         return str(self.contacto)
+        
 
+
+class Backup(models.Model):
+    num_dist = models.CharField(max_length=20)
+    nombres = models.CharField(max_length=200)
+    descuento_choice = models.CharField(max_length=10)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    tel_casa = models.CharField(max_length=10)
+    tel_cel = models.CharField(max_length=10)
+    pais = models.CharField(max_length=100)
+    estado = models.CharField(max_length=100)
+    centro_alta = models.CharField(max_length=100)
+    email = models.EmailField()
+    fecha_ultima_compra = models.DateField()
+    meses_sin_compra = models.IntegerField()
+    fecha_alta = models.DateField()
+    sexo = models.CharField(max_length=2)
+    fecha_nacimiento = models.DateField()
+    total_puntos = models.IntegerField()
+    campania = models.CharField(max_length=200)
+    pais = models.CharField(max_length=200)
+    cedi = models.CharField(max_length=200)
+    registro_no_exi = models.CharField(max_length=200)
+    registro_exi = models.CharField(max_length=200)
+    comentario = models.TextField()
+    remarcar = models.BooleanField()
+    ultima_interaccion = models.DateTimeField(auto_now=True)
+    
     
 
 """
