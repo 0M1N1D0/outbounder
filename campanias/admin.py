@@ -40,8 +40,13 @@ class CediAdmin(admin.ModelAdmin):
 
 @admin.register(Contacto)
 class ContactoAdmin(admin.ModelAdmin):
-    pass
-    # list_display = ('codigo_eo', 'nombres', 'apellido_paterno', 'descuento', 'display_campania')
+
+    # metodo para mostrar la FK campania
+    def mostrar_campania(self, obj):
+        if obj.campania:
+            return obj.campania.nombre
+
+    list_display = ('num_dist', 'mostrar_campania', 'fecha_creacion')
     # search_fields = ['codigo_eo', 'descuento']
     # list_editable = ['display_campania']
 
