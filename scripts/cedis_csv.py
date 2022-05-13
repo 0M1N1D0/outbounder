@@ -41,9 +41,9 @@ with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder
     for row in reader:
         # como row es una lista, se pasa el elemento a i para agregarlo normal y que no se agregue como lista
         nombre = row[0]
-        estado = row[1]
+        pais = row[1]
         cursor.execute(
-            'INSERT INTO campanias_cedi(nombre, fecha_creacion, fecha_modificacion, estado_id) VALUES(%s, %s, %s, %s)', (nombre, dt.now(), dt.now(), estado)
+            'INSERT INTO campanias_cedi(nombre, fecha_creacion, fecha_modificacion, pais_id) VALUES(%s, %s, %s, %s)', (nombre, dt.now(), dt.now(), pais)
         )
     # # cursor.copy_from(f, 'campanias_estado', sep=',')
 

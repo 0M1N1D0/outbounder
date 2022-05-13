@@ -32,7 +32,7 @@ with open(r'C:\Users\miguel.alvarez\Desktop\Python\proyectos\proyecto outbounder
         i = row[0]
         cursor.execute(
             # no importa el orden
-            'INSERT INTO campanias_estado(fecha_creacion, fecha_modificacion, nombre) VALUES(%s, %s, %s)', (dt.now(), dt.now(), i)
+            'INSERT INTO campanias_pais(fecha_creacion, fecha_modificacion, nombre) VALUES(%s, %s, %s)', (dt.now(), dt.now(), i)
         )
     # # cursor.copy_from(f, 'campanias_estado', sep=',')
 

@@ -7,3 +7,5 @@ class CampaniasConfig(AppConfig):
     name = 'campanias'
 
     verbose_name = 'Gestión de campañas'
+
+    ordering = ['Pais', 'Cedi', 'Campania', 'RegistroExitoso', 'RegistroNoExitoso', 'Contacto', 'Resultado']

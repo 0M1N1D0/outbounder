@@ -1,7 +1,5 @@
-import email
-from tabnanny import verbose
+from pyexpat import model
 from django.db import models
-from django.forms import CharField
 
 # Create your models here.
 
@@ -12,6 +10,10 @@ class Pais(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    class Meta:
+        verbose_name = 'País'
+        verbose_name_plural = 'Países'
 
 
 class Cedi(models.Model):
@@ -29,6 +31,7 @@ class Campania(models.Model):
     nombre = models.CharField(max_length=200, primary_key=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
+    descripcion = models.TextField()
     # campo manytomany
     cedis = models.ManyToManyField(Cedi)
 
@@ -41,6 +44,9 @@ class Campania(models.Model):
         # cedis: atributo cedis del modelo Campania
         return ", ".join([i.nombre for i in self.cedis.all()])
 
+    class Meta:
+        verbose_name = 'Campaña'
+        verbose_name_plural = 'Campañas'
 
 
 class Contacto(models.Model):
@@ -58,11 +64,11 @@ class Contacto(models.Model):
         ('F', 'F'),
     ]
 
-    num_dist = models.CharField(max_length=20, primary_key=True)
+    num_dist = models.CharField(max_length=20, primary_key=True, unique=False)
     nombre = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10, choices = DESCUENTO_CHOICES, default='20')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_modificacion = models.DateTimeField(auto_now=True)
+    #fecha_modificacion = models.DateTimeField(auto_now=True)
     tel_casa = models.CharField(max_length=10)
     tel_cel = models.CharField(max_length=10)
     pais = models.CharField(max_length=100)
@@ -75,57 +81,86 @@ class Contacto(models.Model):
     sexo = models.CharField(max_length=2, choices = SEXO_CHOICES, default = 'M')
     fecha_nacimiento = models.DateField()
     total_puntos = models.IntegerField()
-
-    # campo ManyToMany
-    campania = models.ManyToManyField(Campania)
+    campania = models.ForeignKey(Campania, verbose_name='campaña', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.codigo_eo
+        return self.num_dist
 
-    def display_campania(self):
-        # nombre: campo de la tabla foranea que queremos mostrar
-        # campania: atributo campania del modelo Contacto
-        return ", ".join([i.nombre for i in self.campania.all()])
+
+
+# EXITOSO_CHOICES = [
+#     ('Exitoso', 'Cambio de residencia ( permanente o temporal)'),
+#     ('Exitoso', 'Es para su consumo personal'),
+#     ('Exitoso', 'Falta de recursos economicos'),
+#     ('Exitoso', 'Falta de tiempo'),
+#     ('Exitoso', 'Informativa'),
+#     ('Exitoso', 'Motivos de salud'),
+#     ('Exitoso', 'No compra con su codigo'),
+#     ('Exitoso', 'No conoce formas de compra'),
+#     ('Exitoso', 'Otros'),
+# ]
 
 
 class RegistroExitoso(models.Model):
+    razon = models.CharField(max_length=300)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
 
-    EXITOSO_CHOICES = [
-    ('Exitoso', 'Cambio de residencia ( permanente o temporal)'),
-    ('Exitoso', 'Es para su consumo personal'),
-    ('Exitoso', 'Falta de recursos economicos'),
-    ('Exitoso', 'Falta de tiempo'),
-    ('Exitoso', 'Informativa'),
-    ('Exitoso', 'Motivos de salud'),
-    ('Exitoso', 'No compra con su codigo'),
-    ('Exitoso', 'No conoce formas de compra'),
-    ('Exitoso', 'Otros'),
-    ]
+    def __str__(self):
+        return self.razon
 
-    razon = models.CharField(max_length=300, choices = EXITOSO_CHOICES, default = ' ')
+    class Meta:
+        verbose_name = 'Registro Exitoso'
+        verbose_name_plural = 'Registros Exitosos'
 
+
+# NO_EXITOSO_CHOICES = [
+#     ('No Exitoso', 'Linea fuera de servicio'),
+#     ('No Exitoso', 'No contesta'),
+#     ('No Exitoso', 'No le interesa se le brinde información'),
+#     ('No Exitoso', 'No se puede contactar por el horario'),
+#     ('No Exitoso', 'Numero del patrocinador'),
+#     ('No Exitoso', 'Telefono equivocado'),
+# ]
 
 class RegistroNoExitoso(models.Model):
+    razon = models.CharField(max_length=300)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
 
-    NO_EXITOSO_CHOICES = [
-        ('No Exitoso', 'Linea fuera de servicio'),
-        ('No Exitoso', 'No contesta'),
-        ('No Exitoso', 'No le interesa se le brinde información'),
-        ('No Exitoso', 'No se puede contactar por el horario'),
-        ('No Exitoso', 'Numero del patrocinador'),
-        ('No Exitoso', 'Telefono equivocado'),
-    ]
+    def __str__(self):
+        return self.razon
 
-    razon = models.CharField(max_length=300, choices = NO_EXITOSO_CHOICES, default = ' ')
+    class Meta:
+        verbose_name = 'Registro No Exitoso'
+        verbose_name_plural = 'Registros No Exitosos'
 
 
 class Resultado(models.Model):
     contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE)
-    registro_no_exi = models.ForeignKey(RegistroNoExitoso, on_delete=models.CASCADE)
-    registro_exi = models.ForeignKey(RegistroExitoso, on_delete=models.CASCADE)
+    registro_no_exi = models.ForeignKey(RegistroNoExitoso, on_delete=models.CASCADE, null=True, blank=True)
+    registro_exi = models.ForeignKey(RegistroExitoso, on_delete=models.CASCADE, null=True, blank=True)
     comentario = models.TextField()
     remarcar = models.BooleanField()
     ultima_interaccion = models.DateTimeField(auto_now_add=True)
+    
+   # campania = Contacto.objects.all().select_related('campania')
+
+    def __str__(self):
+        # se transforma a str() porque si no devuelve un error 
+        return str(self.contacto)
+
+    
+
+"""
+METODO PARA USAR UN CAMPO de una tabla many to many en list_display
+
+def display_campania(self):
+        # nombre: campo de la tabla foranea que queremos mostrar
+        # campania: atributo campania del modelo Resultado
+        return ", ".join([i.nombre for i in self.campania.all()])
+"""
+    
 
 # class RegistrosNoExitoso(models.Model):
 #     descripcion = models.TextField()
