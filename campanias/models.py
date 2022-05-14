@@ -182,7 +182,7 @@ class Backup(models.Model):
     
 
 """
-METODO PARA USAR UN CAMPO de una tabla many to many en list_display
+MéTODO PARA USAR UN CAMPO de una tabla many to many en list_display
 
 def display_campania(self):
         # nombre: campo de la tabla foranea que queremos mostrar
