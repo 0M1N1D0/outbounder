@@ -1,14 +1,35 @@
-from django.shortcuts import render
-from campanias.models import Campania
+from django.shortcuts import redirect, render
+from campanias.models import Campania, Cedi
 
 # Create your views here.
+
+# **********************************************
+# VISTA INDEX
+# **********************************************
 def index(request):
+    cedi = Cedi.objects.all()
     campanias = Campania.objects.all()
-    context = {'campania': campanias}
+    #campanias = Campania.objects.filter(cedis = cedi[0])
+    # campanias = Campania.objects.select_related('cedis').filter(cedis=cedi)
+    context = {
+        'campania': campanias,
+        'cedi': cedi,
+    }
     return render(request, 'formulario/index.html', context=context)
 
-def submit(request):
-    return render(request, 'formulario/submit.html')
+
+#def despliega_campania(request):
+
+
+# **********************************************
+# VISTA FORMULARIO
+# **********************************************
+def formulario(request):
+    cedi = request.POST['select_cedis']
+    campania = request.POST['select_campania']
+    print(cedi)
+    print(campania)
+    return render(request, 'formulario/formulario.html')
 
 
 # ******************************************************

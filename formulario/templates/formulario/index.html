@@ -7,14 +7,35 @@
     <title>Formulario Outbound</title>
 </head>
 <body>
-    <h1>Vista de formulario</h1>
+    <h1>Vista Index</h1>
     
-    <form action="/submit/" method="post">
+    <form action="/formulario/" method="post">
     {% csrf_token %}
-        {% for i in campania %}
-            <label for="">{{i}}</label>
-        {% endfor %}
-        <input type="submit" value="Guardar">
+    {% comment %} 
+        *************************************************
+        SELECCION DE CEDIS
+        ************************************************* 
+    {% endcomment %}
+        <label for="">CEDIS</label>
+        <select name="select_cedis" id="">
+            {% for i in cedi %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select>
+    {% comment %}
+        *************************************************
+        SELECCION DE CAMPAÑA
+        *************************************************  
+    {% endcomment %}
+        <select name="select_campania" id="">
+            {% for i in campania %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Enviar">
     </form>
+
+        
+
 </body>
 </html>
