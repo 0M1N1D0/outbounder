@@ -13,29 +13,41 @@
     {% csrf_token %}
     {% comment %} 
         *************************************************
-        SELECCION DE CEDIS
+        SELECCION DE PAIS
         ************************************************* 
     {% endcomment %}
+        <label for="">PAIS</label>
+        <select name="select_pais" id="">
+            <option value="">----------</option>
+            {% for i in pais %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select>
+    <!-- SELECT CEDIS -->
         <label for="">CEDIS</label>
         <select name="select_cedis" id="">
+            <option value="">----------</option>
             {% for i in cedi %}
                 <option value="{{i}}">{{i}}</option>
             {% endfor %}
         </select>
-    {% comment %}
-        *************************************************
-        SELECCION DE CAMPAÑA
-        *************************************************  
-    {% endcomment %}
+    
+    <!-- SELECT CAMPANIA -->
+        <label for="">CAMPAÑA</label>
         <select name="select_campania" id="">
-            {% for i in campania %}
-                <option value="{{i}}">{{i}}</option>
+            <option value="">----------</option>
+            {% for j in campania %}
+                <option value="{{j}}">{{j}}</option>
             {% endfor %}
         </select>
+ 
         <input type="submit" value="Enviar">
+        {% if lista_cedis %}
+            {% for i in lista_cedis %}
+                <p>{{i}}</p>
+            {% endfor %}
+        {% else %}
+        {% endif %}
     </form>
-
-        
-
 </body>
 </html>

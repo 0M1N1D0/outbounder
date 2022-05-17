@@ -1,5 +1,9 @@
+
+from multiprocessing import context
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
-from campanias.models import Campania, Cedi
+from django.urls import reverse   
+from campanias.models import Campania, Cedi, Pais
 
 # Create your views here.
 
@@ -8,27 +12,37 @@ from campanias.models import Campania, Cedi
 # **********************************************
 def index(request):
     cedi = Cedi.objects.all()
-    campanias = Campania.objects.all()
+    campania = Campania.objects.all()
+    pais = Pais.objects.all()
     #campanias = Campania.objects.filter(cedis = cedi[0])
     # campanias = Campania.objects.select_related('cedis').filter(cedis=cedi)
     context = {
-        'campania': campanias,
+        'pais': pais,
         'cedi': cedi,
+        'campania': campania,
     }
     return render(request, 'formulario/index.html', context=context)
 
-
-#def despliega_campania(request):
-
+# TODO: hacer select dependientes
 
 # **********************************************
 # VISTA FORMULARIO
 # **********************************************
 def formulario(request):
-    cedi = request.POST['select_cedis']
-    campania = request.POST['select_campania']
-    print(cedi)
-    print(campania)
+    cedi_select  = request.POST['select_cedis']
+    campania_select  = request.POST['select_campania']
+    pais_select = request.POST['select_pais']
+    print(pais_select)
+    print(cedi_select)
+    print(campania_select)
+
+    # lista_cedis = Cedi.objects.filter(pais=pais_select)    
+
+    # if cedi not in valida_camp_ced:
+    #     print('La campaña que eligió no se encuentra dada de alta en el CEDIS seleccionado.')
+    # else:
+    #     print('Campaña y CEDIS sí coinciden.')
+
     return render(request, 'formulario/formulario.html')
 
 
