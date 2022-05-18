@@ -1,3 +1,4 @@
+from math import ceil
 from pyexpat import model
 from django.db import models
 
@@ -38,7 +39,9 @@ class Campania(models.Model):
     def __str__(self):
         return self.nombre 
 
-    # método para list_display del campo cedis(ManyToMany)
+    """
+        método para list_display del campo cedis(ManyToMany):
+    """
     def display_cedis(self):
         # nombre: campo de la tabla foranea que queremos mostrar
         # cedis: atributo cedis del modelo Campania
@@ -82,6 +85,7 @@ class Contacto(models.Model):
     fecha_nacimiento = models.DateField()
     total_puntos = models.IntegerField()
     campania = models.ForeignKey(Campania, verbose_name='campaña', on_delete=models.CASCADE)
+    cedis = models.ForeignKey(Cedi, verbose_name='cedis', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.num_dist
@@ -141,8 +145,9 @@ class Resultado(models.Model):
     registro_no_exi = models.ForeignKey(RegistroNoExitoso, on_delete=models.CASCADE, null=True, blank=True)
     registro_exi = models.ForeignKey(RegistroExitoso, on_delete=models.CASCADE, null=True, blank=True)
     comentario = models.TextField()
-    remarcar = models.BooleanField()
-    fecha_creacion = models.DateField(auto_now_add=True) 
+    remarcar = models.BooleanField(default=True)
+    fecha_primer_contacto = models.DateField(auto_now_add=True) 
+    fecha_modificacion = models.DateField(auto_now=True)
     ultima_interaccion = models.DateTimeField(auto_now=True)
     
    # campania = Contacto.objects.all().select_related('campania')

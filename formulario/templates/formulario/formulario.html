@@ -8,5 +8,16 @@
 </head>
 <body>
     <h1>Vista de formulario</h1>
+    <form action="">
+        {% csrf_token %}
+        <label for="">País:</label>
+        <label for="">{{pais_select}}</label>
+        <label for="">CEDIS:</label>
+        <label for="">{{cedi_select}}</label>
+        <label for="">Campaña:</label>
+        <label for="">{{campania_select}}</label>
+        <label for="">Descripción de campaña:</label>
+        <p>{{descripcion_campania.descripcion}}</p>
+    </form>
 </body>
 </html>

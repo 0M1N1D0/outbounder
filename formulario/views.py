@@ -32,18 +32,21 @@ def formulario(request):
     cedi_select  = request.POST['select_cedis']
     campania_select  = request.POST['select_campania']
     pais_select = request.POST['select_pais']
-    print(pais_select)
-    print(cedi_select)
-    print(campania_select)
+
+    # QUERYSET: filtra las campañas por el nombre seleccionado y muestra su campo descripcion
+    descripcion_campania = Campania.objects.get(nombre=campania_select) # values('descripcion')   
+    #print(descripcion_campania)
+
+    context = {
+        'pais_select': pais_select,
+        'cedi_select': cedi_select,
+        'campania_select': campania_select,
+        'descripcion_campania': descripcion_campania,
+    }
 
     # lista_cedis = Cedi.objects.filter(pais=pais_select)    
 
-    # if cedi not in valida_camp_ced:
-    #     print('La campaña que eligió no se encuentra dada de alta en el CEDIS seleccionado.')
-    # else:
-    #     print('Campaña y CEDIS sí coinciden.')
-
-    return render(request, 'formulario/formulario.html')
+    return render(request, 'formulario/formulario.html', context=context)
 
 
 # ******************************************************
