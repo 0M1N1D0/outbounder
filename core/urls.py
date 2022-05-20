@@ -20,3 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('formulario.urls')),
 ]
+
+# captura el error que se levanata en formulario/views por no encontrar regstros
+handler404 = 'formulario.views.error_not_found'

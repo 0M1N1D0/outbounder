@@ -1,11 +1,16 @@
 
-from multiprocessing import context
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
+
+from logging import exception
+from django.http import Http404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse   
 from campanias.models import Campania, Cedi, Contacto, Pais, Resultado
 
 # Create your views here.
+
+def error_not_found(request, exception):
+    return render(request, 'formulario/error_404.html', status=404)
+
 
 # **********************************************
 # VISTA INDEX
@@ -38,36 +43,56 @@ def formulario(request):
     descripcion_campania = Campania.objects.get(nombre=campania_select) # .values('descripcion')   
     #print(descripcion_campania)
 
+    # try:
     # obtiene los querysets de los contactos que son de la campaña y cedis seleccionado
     lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select)
-    #print(lista_contactos)
+    #lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
+    # except Contacto.DoesNotExist:
+    #     raise Http404
 
-    # devuelve los querysets que la lista_contactos que están en el campo contacto y 
+
+    # devuelve los querysets de la lista_contactos que están en el campo contacto de tabla Resultado y 
     # sobre de ellos filtra los que están por remarcar 
     por_remarcar = Resultado.objects.filter(contacto__in =  lista_contactos).filter(remarcar = True)
-    #print(por_remarcar)
 
-    def contacto_pormarcar():
-        if por_remarcar.count() > 0:
+    # devuelve los querysets de los contactos seleccionados que no están aún en la tabla Resultado
+    remarcar_excluidos = lista_contactos.exclude(num_dist__in = Resultado.objects.values('contacto'))
+    print('excluido:', remarcar_excluidos)
+
+    # si en la tabla Contactos hay contactos que aún no existen en la tabla Resultado, 
+    # devuelve uno de ellos, sino, devuelve un contacto que está en la tabla resultado 
+    # con el campo remarcar como True
+    def contacto_pormarcar():  
+        if remarcar_excluidos.count() > 0:
+            return remarcar_excluidos[0]
+        elif por_remarcar.count() > 0:
             return por_remarcar[0]
-        else:
-            return None
  
+
     contacto = contacto_pormarcar()
     print(contacto)
-    q = Contacto.objects.get(num_dist=contacto)
-    print(q)
+
+    # si no existen registros para la consulta, levanta un 404:
+    try:
+        consulta = Contacto.objects.get(num_dist=contacto)
+        print(consulta)
+    except Contacto.DoesNotExist:
+        raise Http404
+
+
     context = {
         'pais_select': pais_select,
         'cedi_select': cedi_select,
         'campania_select': campania_select,
         'descripcion_campania': descripcion_campania,
-        'contacto': q,
+        'contacto': consulta,
     }
 
     # lista_cedis = Cedi.objects.filter(pais=pais_select)    
 
     return render(request, 'formulario/formulario.html', context=context)
+
+
 
 
 # ******************************************************
