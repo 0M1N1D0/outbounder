@@ -1,26 +1,25 @@
 
-
-from logging import exception
 from django.http import Http404
-from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse   
+from django.shortcuts import render, get_object_or_404
 from campanias.models import Campania, Cedi, Contacto, Pais, Resultado
 
 # Create your views here.
 
+# ##############################################
+# VISTA ERROR 404
+# ##############################################
 def error_not_found(request, exception):
-    return render(request, 'formulario/error_404.html', status=404)
+    return render(request, 'formulario/error_404.html')
 
 
-# **********************************************
+# ##############################################
 # VISTA INDEX
-# **********************************************
+# ##############################################
 def index(request):
     cedi = Cedi.objects.all()
     campania = Campania.objects.all()
     pais = Pais.objects.all()
-    #campanias = Campania.objects.filter(cedis = cedi[0])
-    # campanias = Campania.objects.select_related('cedis').filter(cedis=cedi)
+
     context = {
         'pais': pais,
         'cedi': cedi,
@@ -30,9 +29,9 @@ def index(request):
 
 # TODO: hacer select dependientes
 
-# **********************************************
+# ##############################################
 # VISTA FORMULARIO
-# **********************************************
+# ##############################################
 def formulario(request):
     # se guardan los datos seleccionados con <select>
     cedi_select  = request.POST['select_cedis']
@@ -43,12 +42,12 @@ def formulario(request):
     descripcion_campania = Campania.objects.get(nombre=campania_select) # .values('descripcion')   
     #print(descripcion_campania)
 
-    # try:
+    # ? try:
     # obtiene los querysets de los contactos que son de la campaña y cedis seleccionado
     lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select)
-    #lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
-    # except Contacto.DoesNotExist:
-    #     raise Http404
+    # ? lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
+    # ? except Contacto.DoesNotExist:
+    # ?     raise Http404
 
 
     # devuelve los querysets de la lista_contactos que están en el campo contacto de tabla Resultado y 
@@ -75,11 +74,10 @@ def formulario(request):
     # si no existen registros para la consulta, levanta un 404:
     try:
         consulta = Contacto.objects.get(num_dist=contacto)
-        print(consulta)
     except Contacto.DoesNotExist:
         raise Http404
 
-
+    # creación de contexto
     context = {
         'pais_select': pais_select,
         'cedi_select': cedi_select,
@@ -87,19 +85,18 @@ def formulario(request):
         'descripcion_campania': descripcion_campania,
         'contacto': consulta,
     }
-
-    # lista_cedis = Cedi.objects.filter(pais=pais_select)    
-
+   
     return render(request, 'formulario/formulario.html', context=context)
 
 
 
 
-# ******************************************************
-# VISTA DE FORMULARIO
-# ******************************************************
+# ######################################################
+# VISTA DE FORMULARIO 
+# ######################################################
 # from .forms import ContactoForm
 
+# EJEMPLO: 
 # def index(request):
 #     context={}
 #     if request.method == 'POST':

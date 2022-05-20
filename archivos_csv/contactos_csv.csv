@@ -1,12 +1,8 @@
-codigo_eo,nombres,apellido_paterno,apellido_materno,descuento,telefono,,,
-331460MX,María ,Benitez,Godinez,20,3311447755,,,
-331461MX,Sandra,Cárdenaz,Jiménez,40,3344558877,,,
-331462MX,Enriqueta,Gomez,Mendiola,35,3311447788,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
+Código_eo,nombre,descuento,tel_casa,celular,pais,estado,centro_alta,email,fecha_ultima_compra,meses_sin_compra,fecha_alta,sexo,fecha_nacimiento,total_puntos,campania,cedis
+7277,nombreTest1,20,3311220001,3311330001,México,Jalisco,altaTest1,testmail1@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,53,Nuevos eOs,Tlaquepaque
+7278,nombreTest2,25,3311220002,3311330002,México,Jalisco,altaTest2,testmail2@test.com,01/01/2022,4,01/01/1990,M,01/01/1970,23,Nuevos eOs,Tlaquepaque
+7279,nombreTest3,30,3311220003,3311330003,México,Jalisco,altaTest3,testmail1@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,87,Nuevos eOs,Tlaquepaque
+7280,nombreTest4,35,3311220004,3311330004,México,Jalisco,altaTest4,testmail2@test.com,01/01/2022,4,01/01/1990,M,01/01/1970,65,Nuevos eOs,Tlaquepaque
+7281,nombreTest5,40,3311220005,3311330005,México,Jalisco,altaTest5,testmail1@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,56,CTG,Centro
+7282,nombreTest6,45,3311220006,3311330006,México,Jalisco,altaTest6,testmail2@test.com,01/01/2022,4,01/01/1990,M,01/01/1970,21,CTG,Centro
+7283,nombreTest7,20,3311220007,3311330007,México,Jalisco,altaTest7,testmail2@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,12,CTG,Centro
