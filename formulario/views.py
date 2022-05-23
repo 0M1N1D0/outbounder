@@ -1,6 +1,7 @@
 
+from unicodedata import name
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso
 
 # Create your views here.
@@ -95,6 +96,10 @@ def formulario(request):
    
     return render(request, 'formulario/formulario.html', context=context)
 
+
+def submit_registro(request):
+    print("cedi en submit_registro")
+    return render(request, 'formulario/submit_registro.html')
 
 
 

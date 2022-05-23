@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('formulario/', views.formulario, name='formulario'),
+    path('submit_registro/', views.submit_registro, name='submit_registro'),
 ]
 
