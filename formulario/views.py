@@ -1,7 +1,7 @@
 
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
-from campanias.models import Campania, Cedi, Contacto, Pais, Resultado
+from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso
 
 # Create your views here.
 
@@ -73,9 +73,14 @@ def formulario(request):
 
     # si no existen registros para la consulta, levanta un 404:
     try:
-        consulta = Contacto.objects.get(num_dist=contacto)
+        contacto = Contacto.objects.get(num_dist=contacto)
     except Contacto.DoesNotExist:
         raise Http404
+
+    # Se obtienen los registros exitosos y no exitosos para poderlos 
+    # elegir en el frontend
+    registros_exitosos = RegistroExitoso.objects.all()
+    registros_no_exitosos = RegistroNoExitoso.objects.all()
 
     # creación de contexto
     context = {
@@ -83,7 +88,9 @@ def formulario(request):
         'cedi_select': cedi_select,
         'campania_select': campania_select,
         'descripcion_campania': descripcion_campania,
-        'contacto': consulta,
+        'contacto': contacto,
+        'registros_exitosos': registros_exitosos,
+        'registros_no_exitosos': registros_no_exitosos,
     }
    
     return render(request, 'formulario/formulario.html', context=context)

@@ -147,7 +147,7 @@ class Resultado(models.Model):
     comentario = models.TextField()
     remarcar = models.BooleanField(default=True)
     fecha_primer_contacto = models.DateField(auto_now_add=True) 
-    fecha_modificacion = models.DateField(auto_now=True)
+    # ? fecha_modificacion = models.DateField(auto_now=True)
     ultima_interaccion = models.DateTimeField(auto_now=True)
     
    # campania = Contacto.objects.all().select_related('campania')
