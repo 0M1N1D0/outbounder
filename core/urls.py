@@ -21,5 +21,5 @@ urlpatterns = [
     path('', include('formulario.urls')),
 ]
 
-# captura el error que se levanata en formulario/views por no encontrar regstros
+# captura el error que se levanata en formulario/views por no encontrar registros
 handler404 = 'formulario.views.error_not_found'

@@ -145,7 +145,7 @@ class Resultado(models.Model):
     registro_no_exi = models.ForeignKey(RegistroNoExitoso, on_delete=models.CASCADE, null=True, blank=True)
     registro_exi = models.ForeignKey(RegistroExitoso, on_delete=models.CASCADE, null=True, blank=True)
     comentario = models.TextField()
-    remarcar = models.BooleanField(default=True)
+    remarcar = models.BooleanField(default=False)
     fecha_primer_contacto = models.DateField(auto_now_add=True) 
     # ? fecha_modificacion = models.DateField(auto_now=True)
     ultima_interaccion = models.DateTimeField(auto_now=True)
