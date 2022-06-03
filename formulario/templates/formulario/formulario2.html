@@ -1,7 +1,9 @@
 {% extends 'formulario/formulario_base.html' %}
 
-{% block formulario %}
-    <h1>Vista de formulario</h1>
+{% block title %}Formulario outbounder{% endblock title %}
+
+{% block content %}
+    <h1>Vista de formulario 2</h1>
 
     <!------------------ SECCION FORMULARIO------------------------>
     <form action="/submit_registro/{{cedi_select}}/{{pais_select}}/{{campania_select}}" method="post">
@@ -91,4 +93,4 @@
         <!------------------ BOTON ENVIAR ------------------------> 
         <input type="submit" value="Enviar">
     </form>
-{% endblock  %}
+{% endblock content %}
