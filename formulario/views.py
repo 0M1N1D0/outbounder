@@ -40,8 +40,163 @@ def formulario(request):
     cedi_select  = request.POST['select_cedis']
     campania_select  = request.POST['select_campania']
     pais_select = request.POST['select_pais']
+
+    context = consulta(pais_select, cedi_select, campania_select)
     
-    # QUERYSET: filtra las campañas por el nombre seleccionado y muestra su campo descripcion
+    # # QUERYSET: filtra las campañas por el nombre seleccionado y muestra su campo descripcion
+    # descripcion_campania = Campania.objects.get(nombre=campania_select) # .values('descripcion')   
+    # #print(descripcion_campania)
+
+
+    # # obtiene los querysets de los contactos que son de la campaña y cedis seleccionado
+    # lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select)
+    # # lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
+
+
+
+    # # devuelve los querysets de la lista_contactos que están en el campo contacto de tabla Resultado y 
+    # # sobre de ellos filtra los que están por remarcar 
+    # por_remarcar = Resultado.objects.filter(contacto__in =  lista_contactos).filter(remarcar = True)
+
+    # # devuelve los querysets de los contactos seleccionados que no están aún en la tabla Resultado
+    # remarcar_excluidos = lista_contactos.exclude(num_dist__in = Resultado.objects.values('contacto'))
+    # # print('excluido:', remarcar_excluidos)
+
+    # # si en la tabla Contactos hay contactos que aún no existen en la tabla Resultado, 
+    # # devuelve uno de ellos, sino, devuelve un contacto que está en la tabla resultado 
+    # # con el campo remarcar como True
+    # def contacto_pormarcar():  
+    #     if remarcar_excluidos.count() > 0:
+    #         return remarcar_excluidos[0]
+    #     elif por_remarcar.count() > 0:
+    #         return por_remarcar[0]
+ 
+
+    # contacto = contacto_pormarcar()
+    # # print(contacto)
+
+    # # si no existen registros para la consulta, levanta un 404:
+    # try:
+    #     contacto = Contacto.objects.get(num_dist=contacto)
+    # except Contacto.DoesNotExist:
+    #     raise Http404
+
+    # # Se obtienen los registros exitosos y no exitosos para poderlos 
+    # # elegir en el frontend
+    # registros_exitosos = RegistroExitoso.objects.all()
+    # registros_no_exitosos = RegistroNoExitoso.objects.all()
+
+    # # creación de contexto
+    # context = {
+    #     'pais_select': pais_select,
+    #     'cedi_select': cedi_select,
+    #     'campania_select': campania_select,
+    #     'descripcion_campania': descripcion_campania,
+    #     'contacto': contacto,
+    #     'registros_exitosos': registros_exitosos,
+    #     'registros_no_exitosos': registros_no_exitosos,
+    # }
+   
+    return render(request, 'formulario/formulario.html', context=context)
+
+# ##############################################
+# VISTA SUBMIT REGISTRO
+# ##############################################
+# * El nombre del parámetro deberá ser igual en la vista y en la url, sino 
+# * Desatará un error de submit_registro() got an unexpected keyword argument
+def submit_registro(request, cedis, pais, campania):
+    # print("cedi: ", cedis)
+    # print("pais: ", pais)
+    # print("campania: ", campania)
+
+
+    check = request.POST.get('check_remarcar')
+    # check_remarcar = request.POST['check_remarcar']
+    print(check)
+
+    context={
+        'cedis':cedis,
+        'pais': pais,
+        'campania':campania,
+    }
+    return render(request, 'formulario/submit_registro.html', context=context)
+
+
+
+# ##############################################
+# VISTA FORMULARIO 2
+# ##############################################
+def formulario2(request, pais, cedis, campania):
+    pais_select = pais
+    cedi_select = cedis
+    campania_select = campania
+
+    context = consulta(pais_select, cedi_select, campania_select)
+
+    # # QUERYSET: filtra las campañas por el nombre seleccionado y muestra su campo descripcion
+    # descripcion_campania = Campania.objects.get(nombre=campania_select) # .values('descripcion')   
+    # #print(descripcion_campania)
+
+
+    # # obtiene los querysets de los contactos que son de la campaña y cedis seleccionado
+    # lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select)
+    # # lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
+
+
+
+    # # devuelve los querysets de la lista_contactos que están en el campo contacto de tabla Resultado y 
+    # # sobre de ellos filtra los que están por remarcar 
+    # por_remarcar = Resultado.objects.filter(contacto__in =  lista_contactos).filter(remarcar = True)
+
+    # # devuelve los querysets de los contactos seleccionados que no están aún en la tabla Resultado
+    # remarcar_excluidos = lista_contactos.exclude(num_dist__in = Resultado.objects.values('contacto'))
+    # # print('excluido:', remarcar_excluidos)
+
+    # # si en la tabla Contactos hay contactos que aún no existen en la tabla Resultado, 
+    # # devuelve uno de ellos, sino, devuelve un contacto que está en la tabla resultado 
+    # # con el campo remarcar como True
+    # def contacto_pormarcar():  
+    #     if remarcar_excluidos.count() > 0:
+    #         return remarcar_excluidos[0]
+    #     elif por_remarcar.count() > 0:
+    #         return por_remarcar[0]
+ 
+
+    # contacto = contacto_pormarcar()
+    # # print(contacto)
+
+    # # si no existen registros para la consulta, levanta un 404:
+    # try:
+    #     contacto = Contacto.objects.get(num_dist=contacto)
+    # except Contacto.DoesNotExist:
+    #     raise Http404
+
+    # # Se obtienen los registros exitosos y no exitosos para poderlos 
+    # # elegir en el frontend
+    # registros_exitosos = RegistroExitoso.objects.all()
+    # registros_no_exitosos = RegistroNoExitoso.objects.all()
+
+
+    # context={
+    #     'pais_select': pais_select,
+    #     'cedi_select': cedi_select,
+    #     'campania_select': campania_select, 
+    #     'descripcion_campania': descripcion_campania,
+    #     'contacto': contacto,
+    #     'registros_exitosos': registros_exitosos,
+    #     'registros_no_exitosos': registros_no_exitosos,   
+    # }
+
+    return render(request, 'formulario/formulario2.html', context=context)
+
+
+def consulta(pais, cedi, campania):
+
+    pais_select = pais
+    cedi_select = cedi
+    campania_select = campania
+
+     # QUERYSET: filtra las campañas por el nombre seleccionado y muestra su campo descripcion
     descripcion_campania = Campania.objects.get(nombre=campania_select) # .values('descripcion')   
     #print(descripcion_campania)
 
@@ -94,93 +249,10 @@ def formulario(request):
         'registros_exitosos': registros_exitosos,
         'registros_no_exitosos': registros_no_exitosos,
     }
-   
-    return render(request, 'formulario/formulario.html', context=context)
+
+    return context
 
 
-# * El nombre del parámetro deberá ser igual en la vista y en la url, sino 
-# * Desatará un error de submit_registro() got an unexpected keyword argument
-def submit_registro(request, cedis, pais, campania):
-    # print("cedi: ", cedis)
-    # print("pais: ", pais)
-    # print("campania: ", campania)
-
-
-    check = request.POST.get('check_remarcar')
-    # check_remarcar = request.POST['check_remarcar']
-    print(check)
-
-    context={
-        'cedis':cedis,
-        'pais': pais,
-        'campania':campania,
-    }
-    return render(request, 'formulario/submit_registro.html', context=context)
-
-
-
-
-def formulario2(request, pais, cedis, campania):
-    pais_select = pais
-    cedi_select = cedis
-    campania_select = campania
-
-
-
-    # QUERYSET: filtra las campañas por el nombre seleccionado y muestra su campo descripcion
-    descripcion_campania = Campania.objects.get(nombre=campania_select) # .values('descripcion')   
-    #print(descripcion_campania)
-
-
-    # obtiene los querysets de los contactos que son de la campaña y cedis seleccionado
-    lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select)
-    # lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
-
-
-
-    # devuelve los querysets de la lista_contactos que están en el campo contacto de tabla Resultado y 
-    # sobre de ellos filtra los que están por remarcar 
-    por_remarcar = Resultado.objects.filter(contacto__in =  lista_contactos).filter(remarcar = True)
-
-    # devuelve los querysets de los contactos seleccionados que no están aún en la tabla Resultado
-    remarcar_excluidos = lista_contactos.exclude(num_dist__in = Resultado.objects.values('contacto'))
-    # print('excluido:', remarcar_excluidos)
-
-    # si en la tabla Contactos hay contactos que aún no existen en la tabla Resultado, 
-    # devuelve uno de ellos, sino, devuelve un contacto que está en la tabla resultado 
-    # con el campo remarcar como True
-    def contacto_pormarcar():  
-        if remarcar_excluidos.count() > 0:
-            return remarcar_excluidos[0]
-        elif por_remarcar.count() > 0:
-            return por_remarcar[0]
- 
-
-    contacto = contacto_pormarcar()
-    # print(contacto)
-
-    # si no existen registros para la consulta, levanta un 404:
-    try:
-        contacto = Contacto.objects.get(num_dist=contacto)
-    except Contacto.DoesNotExist:
-        raise Http404
-
-    # Se obtienen los registros exitosos y no exitosos para poderlos 
-    # elegir en el frontend
-    registros_exitosos = RegistroExitoso.objects.all()
-    registros_no_exitosos = RegistroNoExitoso.objects.all()
-
-
-    context={
-        'pais_select': pais_select,
-        'cedi_select': cedi_select,
-        'campania_select': campania_select, 
-        'descripcion_campania': descripcion_campania,
-        'contacto': contacto,
-        'registros_exitosos': registros_exitosos,
-        'registros_no_exitosos': registros_no_exitosos,   
-    }
-    return render(request, 'formulario/formulario2.html', context=context)
 
 
 
