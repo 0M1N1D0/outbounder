@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'formulario/formulario_base.html' %}
+
+{% block title %}Submit page{% endblock title %}
+
+{% block content %}
     <h1>Registro guardado exitosamente</h1>
     <h2>{{pais}}</h2>
     <h2>{{cedis}}</h2>
     <h2>{{campania}}</h2>
     <a href= "/formulario2/{{pais}}/{{cedis}}/{{campania}}">Regresar</a>
-    {% comment %} EJEMPLO: <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> {% endcomment %}
+{% endblock content %}
 
-
-    
-</body>
-</html>
