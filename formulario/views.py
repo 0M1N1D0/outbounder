@@ -67,6 +67,17 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     print(registro_no_exitoso)
     print(textarea)
 
+    '''
+    Primero se obtienen las instancias con las opciones, 
+    y estas se ponen en la creación del registro, ya que si 
+    se ponen las opciones en directo, da error. 
+    '''
+    contacto = Contacto.objects.get(num_dist=num_dist)
+    reg_exi = RegistroExitoso.objects.get(razon=registro_exitoso)
+    reg_no_exi = RegistroNoExitoso.objects.get(razon=registro_no_exitoso)
+
+    registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
+    registro.save()
 
     context={
         'cedis':cedis,
