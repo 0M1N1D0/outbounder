@@ -83,8 +83,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'outbounderdb',
-        'USER': 'postgres',
+        'NAME': 'outbounderDB',
+        'USER': 'mike',
         'PASSWORD': '2010',
         'HOST': '127.0.0.1',
         'PORT': '5432',
