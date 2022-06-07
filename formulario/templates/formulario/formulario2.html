@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Page 2</title>
-</head>
-<body>
-    <h1>Vista de formulario</h1>
+{% extends 'formulario/formulario_base.html' %}
+
+{% block title %}Formulario outbounder{% endblock title %}
+
+{% block content %}
+    <h1>Vista de formulario 2</h1>
 
     <!------------------ SECCION FORMULARIO------------------------>
     <form action="/submit_registro/{{cedi_select}}/{{pais_select}}/{{campania_select}}" method="post">
@@ -66,7 +62,7 @@
 
         <!------------------ Checkbox Remarcar ------------------------>
         <div>
-            <label><input type="checkbox" id="" name="check_remarcar" value="True">Remarcar</label>
+            <label><input type="checkbox" id="" name = "check_remarcar" value="True">Remarcar</label>
         </div>
 
         <!------------------ SELECCION DE REGISTRO EXITOSO ------------------------> 
@@ -97,5 +93,4 @@
         <!------------------ BOTON ENVIAR ------------------------> 
         <input type="submit" value="Enviar">
     </form>
-</body>
-</html>
+{% endblock content %}
