@@ -47,8 +47,8 @@ def formulario(request):
 # ##############################################
 # VISTA SUBMIT REGISTRO
 # ##############################################
-# * El nombre del parámetro deberá ser igual en la vista y en la url, sino 
-# * desatará un error de submit_registro() got an unexpected keyword argument
+# El nombre del parámetro deberá ser igual en la vista y en la url, sino 
+# desatará un error de submit_registro() got an unexpected keyword argument
 def submit_registro(request, cedis, pais, campania, num_dist):
 
     # * de esta forma no es posible porque da error al no marcar el check
@@ -60,12 +60,15 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     registro_no_exitoso = request.POST['registro_no_exitoso']
     textarea = request.POST['textarea']
 
+    # si no se hace click en el checkbox, se asigna False
+    if not check:
+        check = False;
 
-    print(check)
-    print(registro_exitoso)
-    print(num_dist)
-    print(registro_no_exitoso)
-    print(textarea)
+    # print(check)
+    # print(registro_exitoso)
+    # print(num_dist)
+    # print(registro_no_exitoso)
+    # print(textarea)
 
     '''
     Primero se obtienen las instancias con las opciones, 
@@ -73,9 +76,20 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     se ponen las opciones en directo, da error. 
     '''
     contacto = Contacto.objects.get(num_dist=num_dist)
-    reg_exi = RegistroExitoso.objects.get(razon=registro_exitoso)
-    reg_no_exi = RegistroNoExitoso.objects.get(razon=registro_no_exitoso)
 
+    # si no encuentra registro, le asigna null
+    try:
+        reg_exi = RegistroExitoso.objects.get(razon=registro_exitoso)
+    except RegistroExitoso.DoesNotExist:
+        reg_exi = None
+
+    # si no encuentra registro, le asigna null
+    try:
+        reg_no_exi = RegistroNoExitoso.objects.get(razon=registro_no_exitoso)
+    except RegistroNoExitoso.DoesNotExist:
+        reg_no_exi = None
+
+    # guarda el registro en el modelo Resultado
     registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
     registro.save()
 
@@ -133,18 +147,20 @@ def consulta(pais, cedi, campania):
 
     # devuelve los querysets de los contactos seleccionados que no están aún en la tabla Resultado
     remarcar_excluidos = lista_contactos.exclude(num_dist__in = Resultado.objects.values('contacto'))
-    # print('excluido:', remarcar_excluidos)
 
     # si en la tabla Contactos hay contactos que aún no existen en la tabla Resultado, 
     # devuelve uno de ellos, sino, devuelve un contacto que está en la tabla resultado 
     # con el campo remarcar como True
+
     def contacto_pormarcar():  
+ 
+  
         if remarcar_excluidos.count() > 0:
             return remarcar_excluidos[0]
         elif por_remarcar.count() > 0:
             return por_remarcar[0]
  
-
+    
     contacto = contacto_pormarcar()
     # print(contacto)
 
