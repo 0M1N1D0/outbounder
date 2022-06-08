@@ -60,6 +60,9 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     registro_no_exitoso = request.POST['registro_no_exitoso']
     textarea = request.POST['textarea']
 
+    # si no se hace click en el checkbox, se asigna False
+    if not check:
+        check = False;
 
     # print(check)
     # print(registro_exitoso)
@@ -144,18 +147,20 @@ def consulta(pais, cedi, campania):
 
     # devuelve los querysets de los contactos seleccionados que no están aún en la tabla Resultado
     remarcar_excluidos = lista_contactos.exclude(num_dist__in = Resultado.objects.values('contacto'))
-    # print('excluido:', remarcar_excluidos)
 
     # si en la tabla Contactos hay contactos que aún no existen en la tabla Resultado, 
     # devuelve uno de ellos, sino, devuelve un contacto que está en la tabla resultado 
     # con el campo remarcar como True
+
     def contacto_pormarcar():  
+ 
+  
         if remarcar_excluidos.count() > 0:
             return remarcar_excluidos[0]
         elif por_remarcar.count() > 0:
             return por_remarcar[0]
  
-
+    
     contacto = contacto_pormarcar()
     # print(contacto)
 
