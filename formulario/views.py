@@ -21,6 +21,7 @@ def index(request):
     campania = Campania.objects.all()
     pais = Pais.objects.all()
 
+
     context = {
         'pais': pais,
         'cedi': cedi,
@@ -41,6 +42,8 @@ def formulario(request):
     pais_select = request.POST['select_pais']
 
     context = consulta(pais_select, cedi_select, campania_select)
+
+    
    
     return render(request, 'formulario/formulario.html', context=context)
 
@@ -89,9 +92,16 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     except RegistroNoExitoso.DoesNotExist:
         reg_no_exi = None
 
-    # guarda el registro en el modelo Resultado
-    registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
-    registro.save()
+    # TODO: explicar esto
+    existe_en_resultado = Resultado.objects.filter(contacto=contacto).exists()
+    
+    if existe_en_resultado:
+        reg = Resultado.objects.get(contacto=contacto)
+        reg.contacto = contacto
+        reg.save()
+    else:
+        registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
+        registro.save()
 
     context={
         'cedis':cedis,
@@ -154,15 +164,16 @@ def consulta(pais, cedi, campania):
 
     def contacto_pormarcar():  
  
-  
+        # TODO: explicar el earliest
         if remarcar_excluidos.count() > 0:
             return remarcar_excluidos[0]
         elif por_remarcar.count() > 0:
-            return por_remarcar[0]
+            i = por_remarcar.earliest('ultima_interaccion')
+            return i
  
     
     contacto = contacto_pormarcar()
-    # print(contacto)
+    print('contacto: ', contacto)
 
     # si no existen registros para la consulta, levanta un 404:
     try:
