@@ -47,8 +47,8 @@ def formulario(request):
 # ##############################################
 # VISTA SUBMIT REGISTRO
 # ##############################################
-# * El nombre del parámetro deberá ser igual en la vista y en la url, sino 
-# * desatará un error de submit_registro() got an unexpected keyword argument
+# El nombre del parámetro deberá ser igual en la vista y en la url, sino 
+# desatará un error de submit_registro() got an unexpected keyword argument
 def submit_registro(request, cedis, pais, campania, num_dist):
 
     # * de esta forma no es posible porque da error al no marcar el check
@@ -61,11 +61,11 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     textarea = request.POST['textarea']
 
 
-    print(check)
-    print(registro_exitoso)
-    print(num_dist)
-    print(registro_no_exitoso)
-    print(textarea)
+    # print(check)
+    # print(registro_exitoso)
+    # print(num_dist)
+    # print(registro_no_exitoso)
+    # print(textarea)
 
     '''
     Primero se obtienen las instancias con las opciones, 
@@ -73,9 +73,20 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     se ponen las opciones en directo, da error. 
     '''
     contacto = Contacto.objects.get(num_dist=num_dist)
-    reg_exi = RegistroExitoso.objects.get(razon=registro_exitoso)
-    reg_no_exi = RegistroNoExitoso.objects.get(razon=registro_no_exitoso)
 
+    # si no encuentra registro, le asigna null
+    try:
+        reg_exi = RegistroExitoso.objects.get(razon=registro_exitoso)
+    except RegistroExitoso.DoesNotExist:
+        reg_exi = None
+
+    # si no encuentra registro, le asigna null
+    try:
+        reg_no_exi = RegistroNoExitoso.objects.get(razon=registro_no_exitoso)
+    except RegistroNoExitoso.DoesNotExist:
+        reg_no_exi = None
+
+    # guarda el registro en el modelo Resultado
     registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
     registro.save()
 
