@@ -1,5 +1,6 @@
 from math import ceil
 from pyexpat import model
+from tabnanny import verbose
 from django.db import models
 
 # Create your models here.
@@ -182,6 +183,13 @@ class Backup(models.Model):
     comentario = models.TextField(null=True, blank=True)
     remarcar = models.BooleanField()
     ultima_interaccion = models.DateTimeField(auto_now=True)
+
+    class Meta: 
+        verbose_name = 'Backup'
+        verbose_name_plural = 'Backups'
+
+        def __str__(self):
+            return self.num_dist
     
     
 

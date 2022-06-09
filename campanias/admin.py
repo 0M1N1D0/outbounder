@@ -1,8 +1,6 @@
-
-from tabnanny import verbose
 from django.contrib import admin
-from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso
-
+from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
+from import_export.admin import ExportActionMixin # para exportar a excel desde el admin site
 
 # ***************** REGISTROS NORMALES *******************
 # admin.site.register(Estado)
@@ -67,5 +65,19 @@ class ResultadoAdmin(admin.ModelAdmin):
 mandar llamar al list_display un campo de una tabla con relacion manytomany
 Resultado.display_campania.short_description = 'Campaña'
 """
-    # Edición de nombre de columna de "display_cedis" a "Cedis"
+
+class BackupAdmin(ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        'num_dist',
+        'nombres',
+        'tel_casa',
+        'tel_cel',
+        'campania',
+        'cedi',
+        'ultima_interaccion',
+        'registro_no_exi',
+        'registro_exi',
+        'remarcar',
+    )
+admin.site.register(Backup, BackupAdmin)
     
