@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'core', # app core
     'campanias.apps.CampaniasConfig', # app campanias
     'formulario.apps.FormularioConfig', # app formulario 
-
     'django_extensions', # extensiones para comando runscript
+    'import_export', # para exportar a excel desde el admin site
 ]
 
 MIDDLEWARE = [
