@@ -116,12 +116,13 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         'campania':campania,
     }
 
+
+    # se crean instancias de los modelos Contacto y Resultado 
+    # para poder hacer los registros en el modelo Backup
     contac = Contacto.objects.get(num_dist=num_dist)
     result = Resultado.objects.get(contacto=contacto)
 
-    print('contac: ', type(contac))
-    print('result: ', result)
-
+    # registro en el modelo Backup del contacto en cuestión
     backup = Backup(
         num_dist = num_dist,
         nombres = contac.nombre,
