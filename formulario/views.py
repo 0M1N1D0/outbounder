@@ -2,7 +2,7 @@
 
 from django.http import Http404
 from django.shortcuts import render
-from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso
+from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
 
 # Create your views here.
 
@@ -92,9 +92,12 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     except RegistroNoExitoso.DoesNotExist:
         reg_no_exi = None
 
-    # TODO: explicar esto
+    # confirma que el constacto ya exista en el modelo Resultado
     existe_en_resultado = Resultado.objects.filter(contacto=contacto).exists()
     
+    # si existe en resultado, actualiza el registro (vuelve a reescribir el contacto), y se modifica 
+    # automáticamente la hora de actualiación. Si el registro aún 
+    # no existe en el modelo Resultado, lo crea.  
     if existe_en_resultado:
         reg = Resultado.objects.get(contacto=contacto)
         reg.contacto = contacto
@@ -108,6 +111,35 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         'pais': pais,
         'campania':campania,
     }
+
+    # backup = Backup(
+    #     num_dist=
+    #     nombres=
+    #     descuento_choice=
+    #     fecha_creacion
+    #     tel_casa
+    #     tel_cel
+    #     pais
+    #     estado
+    #     centro_alta
+    #     email
+    #     fecha_ultima_compra
+    #     meses_sin_compra
+    #     fecha_alta
+    #     sexo
+    #     fecha_nacimiento
+    #     total_puntos
+    #     campania
+    #     pais
+    #     cedi
+    #     registro_no_exi
+    #     registro_exi
+    #     comentario
+    #     remarcar
+    #     ultima_interaccion
+    # )
+
+
     return render(request, 'formulario/submit_registro.html', context=context)
 
 
@@ -163,8 +195,10 @@ def consulta(pais, cedi, campania):
     # con el campo remarcar como True
 
     def contacto_pormarcar():  
- 
-        # TODO: explicar el earliest
+
+        # si hay contactos que aún no están en el modelo resultado, 
+        # los devuelve. Sino, devuelve el contacto más antiguo (que se
+        # ingresó primero) que esté en el modelo Resultado
         if remarcar_excluidos.count() > 0:
             return remarcar_excluidos[0]
         elif por_remarcar.count() > 0:

@@ -178,9 +178,9 @@ class Backup(models.Model):
     campania = models.CharField(max_length=200)
     pais = models.CharField(max_length=200)
     cedi = models.CharField(max_length=200)
-    registro_no_exi = models.CharField(max_length=200)
-    registro_exi = models.CharField(max_length=200)
-    comentario = models.TextField()
+    registro_no_exi = models.CharField(max_length=200, null=True, blank=True)
+    registro_exi = models.CharField(max_length=200, null=True, blank=True)
+    comentario = models.TextField(null=True, blank=True)
     remarcar = models.BooleanField()
     ultima_interaccion = models.DateTimeField(auto_now=True)
     
