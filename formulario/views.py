@@ -2,7 +2,7 @@
 
 from django.http import Http404
 from django.shortcuts import render
-from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso
+from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
 
 # Create your views here.
 
@@ -111,6 +111,35 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         'pais': pais,
         'campania':campania,
     }
+
+    # backup = Backup(
+    #     num_dist=
+    #     nombres=
+    #     descuento_choice=
+    #     fecha_creacion
+    #     tel_casa
+    #     tel_cel
+    #     pais
+    #     estado
+    #     centro_alta
+    #     email
+    #     fecha_ultima_compra
+    #     meses_sin_compra
+    #     fecha_alta
+    #     sexo
+    #     fecha_nacimiento
+    #     total_puntos
+    #     campania
+    #     pais
+    #     cedi
+    #     registro_no_exi
+    #     registro_exi
+    #     comentario
+    #     remarcar
+    #     ultima_interaccion
+    # )
+
+
     return render(request, 'formulario/submit_registro.html', context=context)
 
 
