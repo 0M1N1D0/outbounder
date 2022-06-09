@@ -101,6 +101,10 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     if existe_en_resultado:
         reg = Resultado.objects.get(contacto=contacto)
         reg.contacto = contacto
+        reg.registro_no_exi = reg_no_exi
+        reg.registro_exi = reg_exi
+        reg.comentario = textarea
+        reg.remarcar = check
         reg.save()
     else:
         registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
@@ -112,32 +116,37 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         'campania':campania,
     }
 
-    # backup = Backup(
-    #     num_dist=
-    #     nombres=
-    #     descuento_choice=
-    #     fecha_creacion
-    #     tel_casa
-    #     tel_cel
-    #     pais
-    #     estado
-    #     centro_alta
-    #     email
-    #     fecha_ultima_compra
-    #     meses_sin_compra
-    #     fecha_alta
-    #     sexo
-    #     fecha_nacimiento
-    #     total_puntos
-    #     campania
-    #     pais
-    #     cedi
-    #     registro_no_exi
-    #     registro_exi
-    #     comentario
-    #     remarcar
-    #     ultima_interaccion
-    # )
+    contac = Contacto.objects.get(num_dist=num_dist)
+    result = Resultado.objects.get(contacto=contacto)
+
+    print('contac: ', type(contac))
+    print('result: ', result)
+
+    backup = Backup(
+        num_dist = num_dist,
+        nombres = contac.nombre,
+        descuento_choice = contac.descuento_choice,
+        tel_casa = contac.tel_casa,
+        tel_cel = contac.tel_cel,
+        pais = contac.pais,
+        estado = contac.estado,
+        centro_alta = contac.centro_alta,
+        email = contac.email,
+        fecha_ultima_compra = contac.fecha_ultima_compra,
+        meses_sin_compra = contac.meses_sin_compra,
+        fecha_alta = contac.fecha_alta,
+        sexo = contac.sexo,
+        fecha_nacimiento = contac.fecha_nacimiento,
+        total_puntos = contac.total_puntos,
+        campania = contac.campania,
+        cedi = contacto.cedis,
+        registro_no_exi = result.registro_no_exi,
+        registro_exi = result.registro_exi,
+        comentario = result.comentario,
+        remarcar = result.remarcar
+    )
+
+    backup.save()
 
 
     return render(request, 'formulario/submit_registro.html', context=context)
