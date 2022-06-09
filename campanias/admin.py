@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
-from import_export.admin import ExportActionMixin # para exportar a excel desde el admin site
+from import_export.admin import ExportActionMixin, ImportMixin # para exportar a excel desde el admin site
 
 # ***************** REGISTROS NORMALES *******************
 # admin.site.register(Estado)
@@ -37,7 +37,7 @@ class CediAdmin(admin.ModelAdmin):
 
 
 @admin.register(Contacto)
-class ContactoAdmin(admin.ModelAdmin):
+class ContactoAdmin(ImportMixin, admin.ModelAdmin):
 
     # metodo para mostrar la FK campania
     def mostrar_campania(self, obj):
