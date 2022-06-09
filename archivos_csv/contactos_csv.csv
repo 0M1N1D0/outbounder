@@ -1,8 +1,8 @@
-Código_eo,nombre,descuento,tel_casa,celular,pais,estado,centro_alta,email,fecha_ultima_compra,meses_sin_compra,fecha_alta,sexo,fecha_nacimiento,total_puntos,campania,cedis
-7277,nombreTest1,20,3311220001,3311330001,México,Jalisco,altaTest1,testmail1@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,53,Nuevos eOs,Tlaquepaque
-7278,nombreTest2,25,3311220002,3311330002,México,Jalisco,altaTest2,testmail2@test.com,01/01/2022,4,01/01/1990,M,01/01/1970,23,Nuevos eOs,Tlaquepaque
-7279,nombreTest3,30,3311220003,3311330003,México,Jalisco,altaTest3,testmail1@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,87,Nuevos eOs,Tlaquepaque
-7280,nombreTest4,35,3311220004,3311330004,México,Jalisco,altaTest4,testmail2@test.com,01/01/2022,4,01/01/1990,M,01/01/1970,65,Nuevos eOs,Tlaquepaque
-7281,nombreTest5,40,3311220005,3311330005,México,Jalisco,altaTest5,testmail1@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,56,CTG,Centro
-7282,nombreTest6,45,3311220006,3311330006,México,Jalisco,altaTest6,testmail2@test.com,01/01/2022,4,01/01/1990,M,01/01/1970,21,CTG,Centro
-7283,nombreTest7,20,3311220007,3311330007,México,Jalisco,altaTest7,testmail2@test.com,01/01/2022,4,01/01/1990,F,01/01/1970,12,CTG,Centro
+id,num_dist,nombre,descuento,tel_casa,celular,pais,estado,centro_alta,email,fecha_ultima_compra,meses_sin_compra,fecha_alta,sexo,fecha_nacimiento,total_puntos,campania,cedis
+,7284,nombreTest8,20,3311220008,3311330008,México,Jalisco,altaTest8,testmail1@test.com,05/01/2022,2,03/05/2000,F,20/10/1986,53,Nuevos eOs,Tlaquepaque
+,7285,nombreTest9,25,3311220009,3311330009,México,Jalisco,altaTest9,testmail2@test.com,05/01/2022,2,03/05/2000,M,20/10/1986,23,Nuevos eOs,Tlaquepaque
+,7286,nombreTest10,30,3311220010,3311330010,México,Jalisco,altaTest10,testmail1@test.com,05/01/2022,2,03/05/2000,F,20/10/1986,87,Nuevos eOs,Tlaquepaque
+,7287,nombreTest11,35,3311220011,3311330011,México,Jalisco,altaTest11,testmail2@test.com,05/01/2022,2,03/05/2000,M,20/10/1986,65,Nuevos eOs,Tlaquepaque
+,7288,nombreTest12,40,3311220012,3311330012,México,Jalisco,altaTest12,testmail1@test.com,05/01/2022,2,03/05/2000,F,20/10/1986,56,CTG,Centro
+,7289,nombreTest13,45,3311220013,3311330013,México,Jalisco,altaTest13,testmail2@test.com,05/01/2022,2,03/05/2000,M,20/10/1986,21,CTG,Centro
+,7290,nombreTest14,20,3311220014,3311330014,México,Jalisco,altaTest14,testmail2@test.com,05/01/2022,2,03/05/2000,F,20/10/1986,12,CTG,Centro
