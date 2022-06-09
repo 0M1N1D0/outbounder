@@ -176,7 +176,6 @@ class Backup(models.Model):
     fecha_nacimiento = models.DateField()
     total_puntos = models.IntegerField()
     campania = models.CharField(max_length=200)
-    pais = models.CharField(max_length=200)
     cedi = models.CharField(max_length=200)
     registro_no_exi = models.CharField(max_length=200, null=True, blank=True)
     registro_exi = models.CharField(max_length=200, null=True, blank=True)
