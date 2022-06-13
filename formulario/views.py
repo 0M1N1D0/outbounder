@@ -122,6 +122,9 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     contac = Contacto.objects.get(num_dist=num_dist)
     result = Resultado.objects.get(contacto=contacto)
 
+    print(contac)
+    print(result)
+
     # registro en el modelo Backup del contacto en cuestión
     backup = Backup(
         num_dist = num_dist,
@@ -139,9 +142,9 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         sexo = contac.sexo,
         fecha_nacimiento = contac.fecha_nacimiento,
         total_puntos = contac.total_puntos,
-        campania = contac.campania,
-        cedi = contacto.cedis,
-        registro_no_exi = result.registro_no_exi,
+        campania = campania,
+        cedi = cedis,
+        registro_no_exi = registro_no_exitoso,
         registro_exi = result.registro_exi,
         comentario = result.comentario,
         remarcar = result.remarcar

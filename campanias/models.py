@@ -160,7 +160,7 @@ class Resultado(models.Model):
 
 
 class Backup(models.Model):
-    num_dist = models.CharField(max_length=20)
+    num_dist = models.CharField(max_length=20, primary_key=True, unique=False)
     nombres = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10)
     fecha_creacion = models.DateTimeField(auto_now_add=True)

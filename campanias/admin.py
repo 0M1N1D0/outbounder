@@ -1,6 +1,9 @@
+from dataclasses import fields
+from pyexpat import model
 from django.contrib import admin
 from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
-from import_export.admin import ExportActionMixin, ImportMixin # para exportar a excel desde el admin site
+from import_export.admin import ExportActionMixin, ImportMixin, ImportExportModelAdmin, ImportExportMixin, ExportMixin
+from import_export import resources # para exportar a excel desde el admin site
 
 # ***************** REGISTROS NORMALES *******************
 # admin.site.register(Estado)
@@ -36,8 +39,27 @@ class CediAdmin(admin.ModelAdmin):
     ordering = ('nombre',)
 
 
+# para agregar el boton importar primero se le 
+# agrega la clase Resource y se especifica el 
+# id como num_dist con la opción import_id_fields, 
+# sino daría un error de id
+class ContactoResource(resources.ModelResource):
+    class Meta:
+        model = Contacto
+        import_id_fields = ('num_dist',)
+
+
+'''
+IMPORTANTE: el archivo contactos.csv, en las columnas de fecha, 
+ponerlas en formato: mm/dd/aaaa
+'''
+
+# se agrega ImportMixin para agregar el boton Importar
+# y se relaciona la clase resource
 @admin.register(Contacto)
 class ContactoAdmin(ImportMixin, admin.ModelAdmin):
+
+    resource_class = ContactoResource
 
     # metodo para mostrar la FK campania
     def mostrar_campania(self, obj):
@@ -47,6 +69,7 @@ class ContactoAdmin(ImportMixin, admin.ModelAdmin):
     list_display = ('num_dist', 'mostrar_campania', 'fecha_creacion')
     # search_fields = ['codigo_eo', 'descuento']
     # list_editable = ['display_campania']
+
 
 
 @admin.register(Resultado)
@@ -66,7 +89,8 @@ mandar llamar al list_display un campo de una tabla con relacion manytomany
 Resultado.display_campania.short_description = 'Campaña'
 """
 
-class BackupAdmin(ExportActionMixin, admin.ModelAdmin):
+# Se le agrega el botón exportar con ExportMixin
+class BackupAdmin(ExportMixin, admin.ModelAdmin):
     list_display = (
         'num_dist',
         'nombres',
