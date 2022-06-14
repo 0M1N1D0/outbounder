@@ -110,10 +110,26 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
         registro.save()
 
+
+    # obtiene los contactos con la campaña y cedis seleccionado
+    registros = Contacto.objects.filter(campania=campania).filter(cedis=cedis)
+    # registros_totales: obtiene el conteo de los contactos totales de esa campaña
+    registros_totales = Contacto.objects.filter(num_dist__in =  registros).count()
+    # total_no_exitosos: obtiene el conteo de los contactos que ya se les marcó pero están 
+    # en estatus remarcar True
+    total_no_exitosos = Resultado.objects.filter(remarcar = True).count() 
+    # total_exitosos: obtiene el conteo de los contactos que ya se les marcó y están 
+    # en estatus remarcar False
+    total_exitosos = Resultado.objects.filter(remarcar = False).count() 
+
+    
     context={
         'cedis':cedis,
         'pais': pais,
         'campania':campania,
+        'registros_totales': registros_totales,
+        'total_no_exitosos': total_no_exitosos,
+        'total_exitosos': total_exitosos,
     }
 
 
@@ -122,8 +138,6 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     contac = Contacto.objects.get(num_dist=num_dist)
     result = Resultado.objects.get(contacto=contacto)
 
-    print(contac)
-    print(result)
 
     # registro en el modelo Backup del contacto en cuestión
     backup = Backup(

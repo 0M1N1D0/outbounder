@@ -138,6 +138,7 @@ class ContactoAdmin(ImportExportMixin, admin.ModelAdmin):
         if obj.campania:
             return obj.campania.nombre
 
+    # TODO: mostrar CEDI en el list_display
     list_display = ('num_dist', 'mostrar_campania', 'fecha_creacion')
     # search_fields = ['codigo_eo', 'descuento']
     # list_editable = ['display_campania']

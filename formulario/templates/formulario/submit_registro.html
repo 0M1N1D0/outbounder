@@ -4,9 +4,18 @@
 
 {% block content %}
     <h1>Registro guardado exitosamente</h1>
-    <h2>{{pais}}</h2>
-    <h2>{{cedis}}</h2>
-    <h2>{{campania}}</h2>
+    <label for="">País: </label> 
+    <label for="">{{pais}}</label>
+    <label for="">CEDI: </label>
+    <label for="">{{cedis}}</label>
+    <label for="">Campaña: </label>
+    <label for="">{{campania}}</label>
+    <label for="">Registros totales: </label>
+    <label for="">{{registros_totales}}</label>
+    <label for="">Registros no exitosos: </label>
+    <label for="">{{total_no_exitosos}}</label>
+    <label for="">Registros exitosos: </label>
+    <label for="">{{total_exitosos}}</label>
     <a href= "/formulario2/{{pais}}/{{cedis}}/{{campania}}/">Regresar</a>
 {% endblock content %}
 
