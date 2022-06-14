@@ -98,7 +98,6 @@ class BackupAdmin(ExportMixin, admin.ModelAdmin):
         'tel_cel',
         'campania',
         'cedi',
-        'ultima_interaccion',
         'registro_no_exi',
         'registro_exi',
         'remarcar',
