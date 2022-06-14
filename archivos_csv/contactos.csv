@@ -1,0 +1,6 @@
+num_dist,nombre,descuento_choice,tel_casa,tel_cel,pais,estado,centro_alta,email,fecha_ultima_compra,meses_sin_compra,fecha_alta,sexo,fecha_nacimiento,total_puntos,campania,cedis
+7291,nombreTest15,20,3311220015,3311330008,México,Jalisco,altaTest15,testmail1@test.com,12/24/2000,2,11/08/2002,F,10/20/1986,87,Cupón todos ganan,Tlaquepaque
+7292,nombreTest16,25,3311220016,3311330009,México,Jalisco,altaTest16,testmail2@test.com,12/24/2000,2,11/08/2002,M,10/20/1986,65,Cupón todos ganan,Tlaquepaque
+7293,nombreTest17,30,3311220017,3311330010,México,Jalisco,altaTest17,testmail1@test.com,12/24/2000,2,11/08/2002,F,10/20/1986,56,Cupón todos ganan,Eco Centro
+7294,nombreTest18,35,3311220018,3311330011,México,Jalisco,altaTest18,testmail2@test.com,12/24/2000,2,11/08/2002,M,10/20/1986,21,Nuevos empresarios,Tlaquepaque
+7295,nombreTest19,40,3311220019,3311330012,México,Jalisco,altaTest19,testmail1@test.com,12/24/2000,3,11/08/2002,F,10/20/1986,12,Nuevos empresarios,Eco Centro
