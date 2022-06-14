@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+import environ # para las variables de entorno
+
+env = environ.Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9o!ws@)^qu4&th-xs6*kfw$^*@q#wm8u(r7_j&%f&i%$4)s&ss'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 # se puso el host al cambiar DEBUG a False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -42,7 +46,7 @@ INSTALLED_APPS = [
     'core', # app core
     'campanias.apps.CampaniasConfig', # app campanias
     'formulario.apps.FormularioConfig', # app formulario 
-    'django_extensions', # extensiones para comando runscript
+    # 'django_extensions',  extensiones para comando runscript
     'import_export', # para exportar a excel desde el admin site
 ]
 
