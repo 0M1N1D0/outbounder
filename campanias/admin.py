@@ -13,8 +13,36 @@ admin.site.register(RegistroExitoso)
 
 # ***************** REGISTROS CON CLASE *******************
 
+'''
+IMPORTANTE: para la importación, los archivos .csv en las columnas de fecha 
+ponerlas en formato: mm/dd/aaaa. 
+
+IMPORTANTE: el nombre de las columnas en los archivos .csv debe ser igual 
+al nombre del campo de la tabla de la base de datos.
+
+IMPORTANTE: para agregar el boton importar primero se le 
+agrega la clase Resource y se especifica el 
+id con la opción import_id_fields, 
+sino daría un error de id
+'''
+
+# *************************************************************
+# CampaniaResource
+# *************************************************************
+class CampaniaResource(resources.ModelResource):
+    class Meta:
+        model = Campania
+        import_id_fields = ('nombre',)
+        fields = ('nombre', 'descripcion', 'fecha_creacion')
+
+
+# *************************************************************
+# CampaniaAdmin
+# *************************************************************
 @admin.register(Campania)
-class CampaniaAdmin(admin.ModelAdmin):    
+class CampaniaAdmin(ImportExportMixin, admin.ModelAdmin):   
+    # conecta con CampaniaResource
+    resource_class = CampaniaResource 
     list_display = ('nombre', 'display_cedis')
     list_filter = ('nombre',)
     # fields = ['fecha_creacion', 'fecha_modificacion']
@@ -25,39 +53,83 @@ class CampaniaAdmin(admin.ModelAdmin):
     Campania.display_cedis.short_description = "Cedis"
 
 
+# *************************************************************
+# PaisResource
+# *************************************************************
+class PaisResource(resources.ModelResource):
+    class Meta:
+        model = Pais
+        import_id_fields = ('nombre',)
+        fields = ('nombre',)
 
+
+# *************************************************************
+# PaisAdmin
+# *************************************************************
 @admin.register(Pais)
-class PaisAdmin(admin.ModelAdmin): 
+class PaisAdmin(ImportExportMixin, admin.ModelAdmin): 
+    resource_class = PaisResource
     list_display = ('nombre',)
     readonly_fields = ('fecha_creacion', 'fecha_modificacion')
     ordering = ('nombre',)
 
 
+# *************************************************************
+# CediResource
+# *************************************************************
+class CediResource(resources.ModelResource):
+    class Meta:
+        model = Cedi
+        import_id_fields = ('nombre',)
+        fields = ('nombre', 'pais')
+
+
+# *************************************************************
+# CediAdmin
+# *************************************************************
 @admin.register(Cedi)
-class CediAdmin(admin.ModelAdmin):
+class CediAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = CediResource
     list_display = ('nombre', 'pais')
     ordering = ('nombre',)
 
 
-# para agregar el boton importar primero se le 
-# agrega la clase Resource y se especifica el 
-# id como num_dist con la opción import_id_fields, 
-# sino daría un error de id
+# *************************************************************
+# ContactoResource
+# *************************************************************
 class ContactoResource(resources.ModelResource):
     class Meta:
         model = Contacto
         import_id_fields = ('num_dist',)
+        fields = (
+            'num_dist',
+            'nombre',
+            'descuento_choice',
+            'fecha_creacion',
+            'tel_casa',
+            'tel_cel',
+            'pais',
+            'estado',
+            'centro_alta',
+            'email',
+            'fecha_ultima_compra',
+            'meses_sin_compra',
+            'fecha_alta',
+            'sexo',
+            'fecha_nacimiento',
+            'total_puntos',
+            'campania',
+            'cedis'
+        )
 
 
-'''
-IMPORTANTE: el archivo contactos.csv, en las columnas de fecha, 
-ponerlas en formato: mm/dd/aaaa
-'''
-
+# *************************************************************
+# ContactoAdmin
+# *************************************************************
 # se agrega ImportMixin para agregar el boton Importar
 # y se relaciona la clase resource
 @admin.register(Contacto)
-class ContactoAdmin(ImportMixin, admin.ModelAdmin):
+class ContactoAdmin(ImportExportMixin, admin.ModelAdmin):
 
     resource_class = ContactoResource
 
@@ -71,9 +143,29 @@ class ContactoAdmin(ImportMixin, admin.ModelAdmin):
     # list_editable = ['display_campania']
 
 
+# *************************************************************
+# ResultadoResource
+# *************************************************************
+class ResultadoResource(resources.ModelResource):
+    class Meta:
+        model = Resultado
+        import_id_fields = ('contacto',)
+        fields = (
+            'contacto', 
+            'registro_no_exi', 
+            'registro_exi', 
+            'comentario', 
+            'remarcar', 
+            'fecha_primer_contacto', 
+            'ultima_interaccion'
+        )
 
+
+# *************************************************************
+# ResultadoAdmin
+# *************************************************************
 @admin.register(Resultado)
-class ResultadoAdmin(admin.ModelAdmin):
+class ResultadoAdmin(ExportMixin, admin.ModelAdmin):
 
     # método para mostrar en list_display un campo de tabla foránea 
     def mostrar_campania(self, obj):
@@ -89,6 +181,10 @@ mandar llamar al list_display un campo de una tabla con relacion manytomany
 Resultado.display_campania.short_description = 'Campaña'
 """
 
+
+# *************************************************************
+# BackupAdmin
+# *************************************************************
 # Se le agrega el botón exportar con ExportMixin
 class BackupAdmin(ExportMixin, admin.ModelAdmin):
     list_display = (

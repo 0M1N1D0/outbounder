@@ -145,7 +145,7 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         campania = campania,
         cedi = cedis,
         registro_no_exi = registro_no_exitoso,
-        registro_exi = result.registro_exi,
+        registro_exi = registro_exitoso,
         comentario = result.comentario,
         remarcar = result.remarcar
     )
