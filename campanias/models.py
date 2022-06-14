@@ -5,6 +5,9 @@ from django.db import models
 
 # Create your models here.
 
+# *********************************************************
+# modelo Pais
+# *********************************************************
 class Pais(models.Model):
     nombre = models.CharField(max_length=200, primary_key=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -18,6 +21,9 @@ class Pais(models.Model):
         verbose_name_plural = 'Países'
 
 
+# *********************************************************
+# modelo Cedi
+# *********************************************************
 class Cedi(models.Model):
     nombre = models.CharField(max_length=200, primary_key=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -29,6 +35,9 @@ class Cedi(models.Model):
         return self.nombre
 
 
+# *********************************************************
+# modelo Campania
+# *********************************************************
 class Campania(models.Model):
     nombre = models.CharField(max_length=200, primary_key=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -53,6 +62,9 @@ class Campania(models.Model):
         verbose_name_plural = 'Campañas'
 
 
+# *********************************************************
+# modelo Contacto
+# *********************************************************
 class Contacto(models.Model):
 
     DESCUENTO_CHOICES = [
@@ -105,6 +117,9 @@ class Contacto(models.Model):
 # ]
 
 
+# *********************************************************
+# modelo RegistroExitoso
+# *********************************************************
 class RegistroExitoso(models.Model):
     razon = models.CharField(max_length=300)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -127,6 +142,10 @@ class RegistroExitoso(models.Model):
 #     ('No Exitoso', 'Telefono equivocado'),
 # ]
 
+
+# *********************************************************
+# modelo RegistroNoExitoso
+# *********************************************************
 class RegistroNoExitoso(models.Model):
     razon = models.CharField(max_length=300)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -140,6 +159,9 @@ class RegistroNoExitoso(models.Model):
         verbose_name_plural = 'Registros No Exitosos'
 
 
+# *********************************************************
+# modelo Resultado
+# *********************************************************
 class Resultado(models.Model):
 
     contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE)
@@ -158,7 +180,9 @@ class Resultado(models.Model):
         return str(self.contacto)
         
 
-
+# *********************************************************
+# modelo Backup
+# *********************************************************
 class Backup(models.Model):
     num_dist = models.CharField(max_length=20, primary_key=True, unique=False)
     nombres = models.CharField(max_length=200)
