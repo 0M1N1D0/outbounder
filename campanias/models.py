@@ -163,7 +163,6 @@ class Backup(models.Model):
     num_dist = models.CharField(max_length=20, primary_key=True, unique=False)
     nombres = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
     tel_casa = models.CharField(max_length=10)
     tel_cel = models.CharField(max_length=10)
     pais = models.CharField(max_length=100)
@@ -182,7 +181,7 @@ class Backup(models.Model):
     registro_exi = models.CharField(max_length=200, null=True, blank=True)
     comentario = models.TextField(null=True, blank=True)
     remarcar = models.BooleanField()
-    ultima_interaccion = models.DateTimeField(auto_now=True)
+    fecha_interaccion = models.DateTimeField(auto_now=True)
 
     class Meta: 
         verbose_name = 'Backup'
