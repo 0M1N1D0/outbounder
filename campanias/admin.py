@@ -1,8 +1,6 @@
-from dataclasses import fields
-from pyexpat import model
 from django.contrib import admin
 from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
-from import_export.admin import ExportActionMixin, ImportMixin, ImportExportModelAdmin, ImportExportMixin, ExportMixin
+from import_export.admin import ImportExportMixin, ExportMixin
 from import_export import resources # para exportar a excel desde el admin site
 
 # ***************** REGISTROS NORMALES *******************
