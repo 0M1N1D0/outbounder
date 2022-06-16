@@ -2,20 +2,32 @@
 
 {% block title %}Submit page{% endblock title %}
 
-{% block content %}
-    <h1>Registro guardado exitosamente</h1>
-    <label for="">País: </label> 
-    <label for="">{{pais}}</label>
-    <label for="">CEDI: </label>
-    <label for="">{{cedis}}</label>
-    <label for="">Campaña: </label>
-    <label for="">{{campania}}</label>
-    <label for="">Registros totales: </label>
-    <label for="">{{registros_totales}}</label>
-    <label for="">Registros no exitosos: </label>
-    <label for="">{{total_no_exitosos}}</label>
-    <label for="">Registros exitosos: </label>
-    <label for="">{{total_exitosos}}</label>
-    <a href= "/formulario2/{{pais}}/{{cedis}}/{{campania}}/">Regresar</a>
+{% b    Si aún hay registros en no exitoso, muestra la informaciónlock content %}
+ 
+    {% if registros_totales != total_exitosos %}
+    {% comment %}
+        Si aún hay registros en no exitoso, muestra la información    
+    {% endcomment %}
+        <h1>Registro guardado exitosamente</h1>
+        <label for="">País: </label> 
+        <label for="">{{pais}}</label>
+        <label for="">CEDI: </label>
+        <label for="">{{cedis}}</label>
+        <label for="">Campaña: </label>
+        <label for="">{{campania}}</label>
+        <label for="">Registros totales: </label>
+        <label for="">{{registros_totales}}</label>
+        <label for="">Registros no exitosos: </label>
+        <label for="">{{total_no_exitosos}}</label>
+        <label for="">Registros exitosos: </label>
+        <label for="">{{total_exitosos}}</label>
+        <a href= "/formulario2/{{pais}}/{{cedis}}/{{campania}}/{{registros_totales}}/{{total_no_exitosos}}/{{total_exitosos}}/">Regresar</a>
+    {% else %} 
+    {% comment %}
+        Si se acaban los registros no exitosos, muestra el mensaje y el regreso al index
+    {% endcomment %}  
+        <Label>Se han han completado los registros de la campaña: {{campania}} en el CEDIS:{{cedis}}</Label>
+        <a href="{% url 'index' %}">Regresar</a>    
+    {% endif %}
 {% endblock content %}
 

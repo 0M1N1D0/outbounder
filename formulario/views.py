@@ -174,12 +174,15 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 # ##############################################
 # VISTA FORMULARIO 2
 # ##############################################
-def formulario2(request, pais, cedis, campania):
+def formulario2(request, pais, cedis, campania, registros_totales, total_no_exitosos, total_exitosos):
     pais_select = pais
     cedi_select = cedis
     campania_select = campania
 
     context = consulta(pais_select, cedi_select, campania_select)
+    context['registros_totales'] = registros_totales
+    context['total_no_exitosos'] = total_no_exitosos
+    context['total_exitosos'] = total_exitosos
 
     return render(request, 'formulario/formulario2.html', context=context)
 
