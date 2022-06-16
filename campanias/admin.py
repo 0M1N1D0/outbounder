@@ -132,13 +132,19 @@ class ContactoAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = ContactoResource
 
     # metodo para mostrar la FK campania
-    def mostrar_campania(self, obj):
+    def campania(self, obj):
         if obj.campania:
             return obj.campania.nombre
 
-    # TODO: mostrar CEDI en el list_display
-    list_display = ('num_dist', 'mostrar_campania', 'fecha_creacion')
-    # search_fields = ['codigo_eo', 'descuento']
+    # metodo para mostrar la FK cedis
+    def cedis(self, obj):
+        if obj.cedis:
+            return obj.cedis.nombre
+
+    list_display = ('num_dist', 'nombre', 'campania', 'cedis', 'tel_casa', 'tel_cel')
+    list_filter = ('cedis', 'campania')
+    readonly_fields = ('fecha_creacion',)
+    search_fields = ['num_dist', 'nombre', 'campania__nombre', 'cedis__nombre']
     # list_editable = ['display_campania']
 
 
@@ -171,7 +177,12 @@ class ResultadoAdmin(ExportMixin, admin.ModelAdmin):
         if obj.contacto:
             return obj.contacto.campania
 
-    list_display = ('contacto', 'remarcar', 'ultima_interaccion', 'mostrar_campania')
+    # método para mostrar en list_display un campo de tabla foránea 
+    def mostrar_cedis(self, obj):
+        if obj.contacto:
+            return obj.contacto.cedis
+
+    list_display = ('contacto', 'remarcar', 'ultima_interaccion', 'mostrar_campania', 'mostrar_cedis')
     list_filter = ('contacto__campania', 'remarcar')
     search_fields = ['contacto__num_dist',]
     # readonly_fields = [] 
@@ -196,6 +207,7 @@ class BackupAdmin(ExportMixin, admin.ModelAdmin):
         'registro_no_exi',
         'registro_exi',
         'remarcar',
+        'fecha_interaccion',
     )
 admin.site.register(Backup, BackupAdmin)
     

@@ -39,7 +39,7 @@ class Cedi(models.Model):
 # modelo Campania
 # *********************************************************
 class Campania(models.Model):
-    nombre = models.CharField(max_length=200, primary_key=True)
+    nombre = models.CharField(verbose_name='campaña', max_length=200, primary_key=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     descripcion = models.TextField()
@@ -80,13 +80,13 @@ class Contacto(models.Model):
         ('F', 'F'),
     ]
 
-    num_dist = models.CharField(verbose_name='Número de distribuidor', max_length=20, primary_key=True, unique=False)
+    num_dist = models.CharField(verbose_name='Número de empresario', max_length=20, primary_key=True, unique=False)
     nombre = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10, choices = DESCUENTO_CHOICES, default='20')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     #fecha_modificacion = models.DateTimeField(auto_now=True)
-    tel_casa = models.CharField(max_length=10)
-    tel_cel = models.CharField(max_length=10)
+    tel_casa = models.CharField(verbose_name='teléfono', max_length=10)
+    tel_cel = models.CharField(verbose_name='ceclular', max_length=10)
     pais = models.CharField(max_length=100)
     estado = models.CharField(max_length=100)
     centro_alta = models.CharField(max_length=100)
