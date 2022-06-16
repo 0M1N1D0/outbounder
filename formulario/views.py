@@ -32,7 +32,7 @@ def index(request):
 # TODO: hacer select dependientes
 
 # ##############################################
-# VISTA FORMULARIO
+# VISTA FORMULARIO 
 # ##############################################
 def formulario(request):
 
@@ -48,7 +48,7 @@ def formulario(request):
     return render(request, 'formulario/formulario.html', context=context)
 
 # ##############################################
-# VISTA SUBMIT REGISTRO
+# VISTA SUBMIT REGISTRO TODO: modal en el else del submit_registro.html
 # ##############################################
 # El nombre del parámetro deberá ser igual en la vista y en la url, sino 
 # desatará un error de submit_registro() got an unexpected keyword argument

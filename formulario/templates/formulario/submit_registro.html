@@ -1,9 +1,8 @@
 {% extends 'formulario/formulario_base.html' %}
 
 {% block title %}Submit page{% endblock title %}
-
-{% b    Si aún hay registros en no exitoso, muestra la informaciónlock content %}
  
+{% block content %}
     {% if registros_totales != total_exitosos %}
     {% comment %}
         Si aún hay registros en no exitoso, muestra la información    
@@ -29,5 +28,6 @@
         <Label>Se han han completado los registros de la campaña: {{campania}} en el CEDIS:{{cedis}}</Label>
         <a href="{% url 'index' %}">Regresar</a>    
     {% endif %}
+
 {% endblock content %}
 
