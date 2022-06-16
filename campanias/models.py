@@ -52,10 +52,14 @@ class Campania(models.Model):
     """
         método para list_display del campo cedis(ManyToMany):
     """
-    def display_cedis(self):
+    # TODO: agregar el campo cedis a la list_display
+    # def get_cedis(self):
         # nombre: campo de la tabla foranea que queremos mostrar
         # cedis: atributo cedis del modelo Campania
-        return ", ".join([i.nombre for i in self.cedis.all()])
+        # lista_cedis = ", ".join([i.nombre for i in self.cedis.all()])
+        # print(self.cedis.values('nombre'))
+        #return lista_cedis
+
 
     class Meta:
         verbose_name = 'Campaña'
@@ -184,11 +188,11 @@ class Resultado(models.Model):
 # modelo Backup
 # *********************************************************
 class Backup(models.Model):
-    num_dist = models.CharField(max_length=20, primary_key=True, unique=False)
+    num_dist = models.CharField(verbose_name='número de empresario', max_length=20, primary_key=True, unique=False)
     nombres = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10)
-    tel_casa = models.CharField(max_length=10)
-    tel_cel = models.CharField(max_length=10)
+    tel_casa = models.CharField(verbose_name='teléfono', max_length=10)
+    tel_cel = models.CharField(verbose_name='celular', max_length=10)
     pais = models.CharField(max_length=100)
     estado = models.CharField(max_length=100)
     centro_alta = models.CharField(max_length=100)
@@ -199,13 +203,13 @@ class Backup(models.Model):
     sexo = models.CharField(max_length=2)
     fecha_nacimiento = models.DateField()
     total_puntos = models.IntegerField()
-    campania = models.CharField(max_length=200)
+    campania = models.CharField(verbose_name='campaña', max_length=200)
     cedi = models.CharField(max_length=200)
-    registro_no_exi = models.CharField(max_length=200, null=True, blank=True)
-    registro_exi = models.CharField(max_length=200, null=True, blank=True)
+    registro_no_exi = models.CharField(verbose_name='no exitoso', max_length=200, null=True, blank=True)
+    registro_exi = models.CharField(verbose_name='exitoso', max_length=200, null=True, blank=True)
     comentario = models.TextField(null=True, blank=True)
     remarcar = models.BooleanField()
-    fecha_interaccion = models.DateTimeField(auto_now=True)
+    fecha_interaccion = models.DateTimeField(verbose_name='última interacción', auto_now=True)
 
     class Meta: 
         verbose_name = 'Backup'
