@@ -20,7 +20,7 @@
         <label for="">{{total_no_exitosos}}</label>
         <label for="">Registros exitosos: </label>
         <label for="">{{total_exitosos}}</label>
-        <a href= "/formulario2/{{pais}}/{{cedis}}/{{campania}}/{{registros_totales}}/{{total_no_exitosos}}/{{total_exitosos}}/">Regresar</a>
+        <a href= "{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Regresar</a>
     {% else %} 
     {% comment %}
         Si se acaban los registros no exitosos, muestra el mensaje y el regreso al index

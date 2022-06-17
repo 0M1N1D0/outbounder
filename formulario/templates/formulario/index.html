@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Vista Index</h1>
     
-    <form action="/formulario/" method="post">
+    <form action="{% url 'formulario' %}" method="post">
     {% csrf_token %}
     {% comment %} 
         *************************************************
