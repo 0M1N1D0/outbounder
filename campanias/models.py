@@ -53,12 +53,11 @@ class Campania(models.Model):
         método para list_display del campo cedis(ManyToMany):
     """
     # TODO: agregar el campo cedis a la list_display
-    # def get_cedis(self):
+    def get_cedis(self):
         # nombre: campo de la tabla foranea que queremos mostrar
         # cedis: atributo cedis del modelo Campania
-        # lista_cedis = ", ".join([i.nombre for i in self.cedis.all()])
-        # print(self.cedis.values('nombre'))
-        #return lista_cedis
+        lista_cedis = ", ".join([i.nombre for i in self.cedis.all()])
+        return lista_cedis
 
 
     class Meta:

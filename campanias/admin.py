@@ -32,7 +32,7 @@ class CampaniaResource(resources.ModelResource):
         model = Campania
         import_id_fields = ('nombre',)
         # TODO: agregar columna para exportacion cedis
-        fields = ('nombre', 'descripcion', 'fecha_creacion')
+        fields = ('nombre', 'descripcion', 'fecha_creacion', 'cedis')
 
 
 # *************************************************************
@@ -43,16 +43,18 @@ class CampaniaAdmin(ImportExportMixin, admin.ModelAdmin):
 
     # conecta con CampaniaResource
     resource_class = CampaniaResource 
-    list_display = ('nombre', 'descripcion')
-    list_filter = ('nombre', )
-    # fields = ['fecha_creacion', 'fecha_modificacion']
+    list_display = ('nombre', 'descripcion', 'get_cedis')
+    list_filter = ('nombre', 'cedis')
     readonly_fields = ('fecha_creacion', 'fecha_modificacion')
     search_fields = ['nombre',] 
+
+    # def get_cedis(self, obj):
+    #     return ", ".join([i.nombre for i in obj.cedis.all()])
 
     
     
     # Edición de nombre de columna de "display_cedis" a "Cedis"
-    '''Campania.get_cedis.short_description = "cedis"'''
+    Campania.get_cedis.short_description = "cedis"
 
 
 # *************************************************************
