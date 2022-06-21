@@ -3,57 +3,58 @@
 {% block title %}Index page{% endblock title %}
 
 {% block content %}
-    <h1>Vista Index</h1>
-    
-    <form action="{% url 'formulario' %}" method="post">
-    {% csrf_token %}
-    {% comment %} 
-        *************************************************
-        SELECCION DE PAIS
-        ************************************************* 
-    {% endcomment %}
-        <label for="">PAIS</label>
-        <select name="select_pais" id="">
-            <option value="">----------</option>
-            {% for i in pais %}
-                <option value="{{i}}">{{i}}</option>
-            {% endfor %}
-        </select>
-    {% comment %} 
-        *************************************************
-        SELECCION DE CEDIS
-        ************************************************* 
-    {% endcomment %}
-    <!-- SELECT CEDIS -->
-        <label for="">CEDIS</label>
-        <select name="select_cedis" id="">
-            <option value="">----------</option>
-            {% for i in cedi %}
-                <option value="{{i}}">{{i}}</option>
-            {% endfor %}
-        </select>
-    {% comment %} 
-        *************************************************
-        SELECCION DE CAMPAÑA
-        ************************************************* 
-    {% endcomment %}
-    <!-- SELECT CAMPAÑA -->
-        <label for="">CAMPAÑA</label>
-        <select name="select_campania" id="">
-            <option value="">----------</option>
-            {% for j in campania %}
-                <option value="{{j}}">{{j}}</option>
-            {% endfor %}
-        </select>
- 
-        <input type="submit" value="Enviar">
-        {% if lista_cedis %}
-            {% for i in lista_cedis %}
-                <p>{{i}}</p>
-            {% endfor %}
-        {% else %}
-        {% endif %}
-    </form>
+    <div class="container">
+        <h1>Vista Index</h1>
+        
+        <form action="{% url 'formulario' %}" method="post">
+        {% csrf_token %}
+        {% comment %}
+            *************************************************
+            SELECCION DE PAIS
+            *************************************************
+        {% endcomment %}
+            <label for="">PAIS</label>
+            <select name="select_pais" id="">
+                <option value="">----------</option>
+                {% for i in pais %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+            </select>
+        {% comment %}
+            *************************************************
+            SELECCION DE CEDIS
+            *************************************************
+        {% endcomment %}
+        <!-- SELECT CEDIS -->
+            <label for="">CEDIS</label>
+            <select name="select_cedis" id="">
+                <option value="">----------</option>
+                {% for i in cedi %}
+                    <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+            </select>
+        {% comment %}
+            *************************************************
+            SELECCION DE CAMPAÑA
+            *************************************************
+        {% endcomment %}
+        <!-- SELECT CAMPAÑA -->
+            <label for="">CAMPAÑA</label>
+            <select name="select_campania" id="">
+                <option value="">----------</option>
+                {% for j in campania %}
+                    <option value="{{j}}">{{j}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Enviar">
+            {% if lista_cedis %}
+                {% for i in lista_cedis %}
+                    <p>{{i}}</p>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </form>
+    </div>
 {% endblock content %}
 
 
