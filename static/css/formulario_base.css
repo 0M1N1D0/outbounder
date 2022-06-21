@@ -19,9 +19,8 @@
 /*******************************
  tamaño del logo
 ********************************/
-.logo{
-    height: 50px;
-    width: 50px;
+img .logo{
+    max-width: 50%;
 }
 
 

@@ -6,98 +6,88 @@
 
 {% block content %}
 
-
-
-    <h1>Vista de formulario</h1>
-
-    <!------------------ SECCION FORMULARIO------------------------>
-    <form action="{% url 'submit_registro' cedi_select pais_select campania_select contacto.num_dist %}" method="post">
-        {% csrf_token %}
-
-        <!------------------ SECCION INFORMATIVA------------------------>
-        <div>
-            <label for="">País:</label>
-            <label for="">{{pais_select}}</label>
-            <label for="">CEDIS:</label>
-            <label for="">{{cedi_select}}</label>
-            <label for="">Campaña:</label>
-            <label for="">{{campania_select}}</label>
-        </div>
-
-        <!------------------ DESCRIPCION DE CAMPAÑA ------------------------>
-        <div>
-            <label for="">Descripción de campaña:</label>
-            <p>{{descripcion_campania.descripcion}}</p>
-        </div>
-
-        <!------------------ SECCION INFO CONTACTO ------------------------>
-        <div>
-            <h3>Datos del eO</h3>
-            <label for="">Número de distribuidor:</label>
-            <label for="">{{contacto.num_dist}}</label>
-            <label for="">Nombre:</label>
-            <label for="">{{contacto.nombre}}</label>
-            <label for="">Descuento:</label>
-            <label for="">{{contacto.descuento_choice}}</label>
-            <label for="">Teléfono casa:</label>
-            <label for="">{{contacto.tel_casa}}</label>
-            <label for="">Celular:</label>
-            <label for="">{{contacto.tel_cel}}</label>
-            <label for="">País:</label>
-            <label for="">{{contacto.pais}}</label>
-            <label for="">Estado:</label>
-            <label for="">{{contacto.estado}}</label>
-            <label for="">Centro de alta:</label>
-            <label for="">{{contacto.centro_alta}}</label>
-            <label for="">Email:</label>
-            <label for="">{{contacto.email}}</label>
-            <label for="">Fecha última compra:</label>
-            <label for="">{{contacto.fecha_ultima_compra}}</label>
-            <label for="">Meses sin compra:</label>
-            <label for="">{{contacto.meses_sin_compra}}</label>
-            <label for="">Fecha de alta:</label>
-            <label for="">{{contacto.fecha_alta}}</label>
-            <label for="">Sexo:</label>
-            <label for="">{{contacto.sexo}}</label>
-            <label for="">Fecha de nacimiento:</label>
-            <label for="">{{contacto.fecha_nacimiento}}</label>
-            <label for="">Puntos totales:</label>
-            <label for="">{{contacto.total_puntos}}</label>
-        </div>
-
-        <!------------------ Checkbox Remarcar ------------------------>
-        <div>
-            <label><input type="checkbox" id="" name = "check_remarcar" value="True">Remarcar</label>
-        </div>
-
-        <!------------------ SELECCION DE REGISTRO EXITOSO ------------------------> 
-        <div>
-            <label for="">Registro exitoso</label>
-            <select name="registro_exitoso" id="">
-                <option value="">----------</option>
-                {% for i in registros_exitosos %}
-                    <option value="{{i.razon}}">{{i.razon}}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!------------------ SELECCION DE REGISTRO EXITOSO ------------------------> 
-        <div>
-            <label for="">Registro no exitoso</label>
-            <select name="registro_no_exitoso" id="">
-                <option value="">----------</option>
-                {% for i in registros_no_exitosos %}
-                    <option value="{{i.razon}}">{{i.razon}}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!------------------ SELECCION DE COMENTARIO ------------------------> 
-        <textarea name="textarea" rows="10" cols="50">Deja tus comentarios aquí</textarea>
-
-        <!------------------ BOTON ENVIAR ------------------------> 
-        <input type="submit" value="Enviar">
-    </form>
+    <div class="container">
+        <!------------------ SECCION FORMULARIO------------------------>
+        <form action="{% url 'submit_registro' cedi_select pais_select campania_select contacto.num_dist %}" method="post">
+            {% csrf_token %}
+            <!------------------ SECCION INFORMATIVA------------------------>
+            <div>
+                <label for="">País:</label>
+                <label for="">{{pais_select}}</label>
+                <label for="">CEDIS:</label>
+                <label for="">{{cedi_select}}</label>
+                <label for="">Campaña:</label>
+                <label for="">{{campania_select}}</label>
+            </div>
+            <!------------------ DESCRIPCION DE CAMPAÑA ------------------------>
+            <div>
+                <label for="">Descripción de campaña:</label>
+                <p>{{descripcion_campania.descripcion}}</p>
+            </div>
+            <!------------------ SECCION INFO CONTACTO ------------------------>
+            <div>
+                <h2>Datos del eO</h2>
+                <label for="">Número de distribuidor:</label>
+                <label for="">{{contacto.num_dist}}</label>
+                <label for="">Nombre:</label>
+                <label for="">{{contacto.nombre}}</label>
+                <label for="">Descuento:</label>
+                <label for="">{{contacto.descuento_choice}}</label>
+                <label for="">Teléfono casa:</label>
+                <label for="">{{contacto.tel_casa}}</label>
+                <label for="">Celular:</label>
+                <label for="">{{contacto.tel_cel}}</label>
+                <label for="">País:</label>
+                <label for="">{{contacto.pais}}</label>
+                <label for="">Estado:</label>
+                <label for="">{{contacto.estado}}</label>
+                <label for="">Centro de alta:</label>
+                <label for="">{{contacto.centro_alta}}</label>
+                <label for="">Email:</label>
+                <label for="">{{contacto.email}}</label>
+                <label for="">Fecha última compra:</label>
+                <label for="">{{contacto.fecha_ultima_compra}}</label>
+                <label for="">Meses sin compra:</label>
+                <label for="">{{contacto.meses_sin_compra}}</label>
+                <label for="">Fecha de alta:</label>
+                <label for="">{{contacto.fecha_alta}}</label>
+                <label for="">Sexo:</label>
+                <label for="">{{contacto.sexo}}</label>
+                <label for="">Fecha de nacimiento:</label>
+                <label for="">{{contacto.fecha_nacimiento}}</label>
+                <label for="">Puntos totales:</label>
+                <label for="">{{contacto.total_puntos}}</label>
+            </div>
+            <!------------------ Checkbox Remarcar ------------------------>
+            <div>
+                <label><input type="checkbox" id="" name = "check_remarcar" value="True">Remarcar</label>
+            </div>
+            <!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
+            <div>
+                <label for="">Registro exitoso</label>
+                <select name="registro_exitoso" id="">
+                    <option value="">----------</option>
+                    {% for i in registros_exitosos %}
+                        <option value="{{i.razon}}">{{i.razon}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
+            <div>
+                <label for="">Registro no exitoso</label>
+                <select name="registro_no_exitoso" id="">
+                    <option value="">----------</option>
+                    {% for i in registros_no_exitosos %}
+                        <option value="{{i.razon}}">{{i.razon}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!------------------ SELECCION DE COMENTARIO ------------------------>
+            <textarea name="textarea" rows="10" cols="50">Deja tus comentarios aquí</textarea>
+            <!------------------ BOTON ENVIAR ------------------------>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
 
 {% endblock content %}
 
