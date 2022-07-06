@@ -10,120 +10,123 @@
       method="post">
 	{% csrf_token %}
 	<!------------------ SECCION INFORMATIVA------------------------>
-	<div class="container form-control mt-2 mb-2">
+	<div class="container form-control mt-4 mb-2">
 
 		<div class="row">
 			<div class="col">
-				<label for="">País:</label>
+				<label class="fw-bold" for="">País:</label>
 				<label for="">{{pais_select}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				<label for="">CEDIS:</label>
+				<label class="fw-bold" for="">CEDIS:</label>
 				<label for="">{{cedi_select}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				<label for="">Campaña:</label>
+				<label class="fw-bold" for="">Campaña:</label>
 				<label for="">{{campania_select}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
 				<!------------------ DESCRIPCION DE CAMPAÑA ------------------------>
-				<label for="">Descripción de campaña:</label>
+				<label class="fw-bold" for="">Descripción de campaña:</label>
 				<label for="">{{descripcion_campania.descripcion}}</label>
 			</div>
 		</div>
 	</div>
 
 
+	{% comment %} 
 	<div class="container">
 		<div class="row justify-content-start">
 			<p class="col-6 text-start fs-4">Datos del empresario</p>
 		</div>
 	</div>
+	{% endcomment %}
 
 
 	<!------------------ SECCION INFO CONTACTO ------------------------>
-	<div class="container form-control ps-3 pe-3">
+	<div class="container form-control ps-3 pe-3 mt-4">
 		<div class="row">
 			<div class="border col-4">
-				<label for="">Número de distribuidor:</label>
+				<label class="fw-bold" for="">Número de distribuidor:</label>
 				<label for="">{{contacto.num_dist}}</label>
 			</div>
 			<div class="border col-6">
-				<label for="">Nombre:</label>
+				<label class="fw-bold" for="">Nombre:</label>
 				<label for="">{{contacto.nombre}}</label>
 			</div>
 			<div class="border col-2">
-				<label for="">Descuento:</label>
+				<label class="fw-bold" for="">Descuento:</label>
 				<label for="">{{contacto.descuento_choice}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="border col">
-				<label for="">Teléfono casa:</label>
+				<label class="fw-bold" for="">Teléfono casa:</label>
 				<label for="">{{contacto.tel_casa}}</label>
 			</div>
 			<div class="border col">
-				<label for="">Celular:</label>
+				<label class="fw-bold" for="">Celular:</label>
 				<label for="">{{contacto.tel_cel}}</label>
 			</div>
 			<div class="border col">
-				<label for="">País:</label>
+				<label class="fw-bold" for="">País:</label>
 				<label for="">{{contacto.pais}}</label>
 			</div>
 			<div class="border col">
-				<label for="">Estado:</label>
+				<label class="fw-bold" for="">Estado:</label>
 				<label for="">{{contacto.estado}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="border col">
-				<label for="">Centro de alta:</label>
+				<label class="fw-bold" for="">Centro de alta:</label>
 				<label for="">{{contacto.centro_alta}}</label>
 			</div>
 			<div class="border col">
-				<label for="">Email:</label>
+				<label class="fw-bold" for="">Email:</label>
 				<label for="">{{contacto.email}}</label>
 			</div>
 			<div class="border col-5">
-				<label for="">Fecha última compra:</label>
+				<label class="fw-bold" for="">Fecha última compra:</label>
 				<label for="">{{contacto.fecha_ultima_compra}}</label>
 			</div>
 			<div class="border col">
-				<label for="">Meses sin compra:</label>
+				<label class="fw-bold" for="">Meses sin compra:</label>
 				<label for="">{{contacto.meses_sin_compra}}</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="border col-4">
-				<label for="">Fecha de alta:</label>
+				<label class="fw-bold" for="">Fecha de alta:</label>
 				<label for="">{{contacto.fecha_alta}}</label>
 			</div>
 			<div class="border col-1">
-				<label for="">Sexo:</label>
+				<label class="fw-bold" for="">Sexo:</label>
 				<label for="">{{contacto.sexo}}</label>
 			</div>
 			<div class="border col-4">
-				<label for="">Fecha de nacimiento:</label>
+				<label class="fw-bold" for="">Fecha de nacimiento:</label>
 				<label for="">{{contacto.fecha_nacimiento}}</label>
 			</div>
 			<div class="border col">
-				<label for="">Puntos totales:</label>
+				<label class="fw-bold" for="">Puntos totales:</label>
 				<label for="">{{contacto.total_puntos}}</label>
 			</div>
 		</div>
 	</div>
 
 
-	<div class="container form-control mt-2">
+	<div class="container form-control mt-4">
 		<!------------------ Checkbox Remarcar ------------------------>
 		<div class="row justify-content-center form-switch mb-3 ">
-			<input class="form-check-input" type="checkbox" name="check_remarcar" value="True" id="check_btn_1" onclick="chequeo(this)">
+			
+			<input class="form-check-input" type="checkbox" name="check_remarcar" value="True" onclick="chequeo(this)">
 		</div>
 		<!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
 		<div class="row justify-content-center">
@@ -136,7 +139,7 @@
 					{% endfor %}
 				</select>
 			</div>
-			<!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
+			<!------------------ SELECCION DE REGISTRO NO EXITOSO ------------------------>
 			<div class="col col-lg-4 ">
 				<label class="input-group-text">Registro no exitoso</label>
 				<select class="form-select"  name="registro_no_exitoso" id="regis_no_exitoso">
@@ -156,7 +159,7 @@
 		</div>
 	</div>
 	<!------------------ BOTON ENVIAR ------------------------>
-	<div class="container col-1 mt-2">
+	<div class="container col-1 mt-3">
 		<div class="row justify-content-center">
 			<input class="form-control  btn-outline-primary" type="submit" value="Enviar">
 		</div>

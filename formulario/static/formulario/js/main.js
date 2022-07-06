@@ -7,7 +7,7 @@
 
 document.getElementById('regis_no_exitoso').disabled = true;
 
-// console.log("prueba")
+console.log("prueba 2 ")
 
 //check_btn_1.style.backgroundColor ="#0d6efd";
 

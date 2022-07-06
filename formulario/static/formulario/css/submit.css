@@ -1,0 +1,9 @@
+
+.enlace {
+    text-decoration: none;
+    color: white;
+}
+
+.enlace:hover{
+    color: #b8b8b8;
+}
