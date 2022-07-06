@@ -1,93 +1,177 @@
 {% extends 'formulario/formulario_base.html' %}
-
 {% block title %}Formulario outbounder{% endblock title %}
 
-
+{% load static %}
 
 {% block content %}
 
-    <div class="container">
-        <!------------------ SECCION FORMULARIO------------------------>
-        <form action="{% url 'submit_registro' cedi_select pais_select campania_select contacto.num_dist %}" method="post">
-            {% csrf_token %}
-            <!------------------ SECCION INFORMATIVA------------------------>
-            <div>
-                <label for="">País:</label>
-                <label for="">{{pais_select}}</label>
-                <label for="">CEDIS:</label>
-                <label for="">{{cedi_select}}</label>
-                <label for="">Campaña:</label>
-                <label for="">{{campania_select}}</label>
-            </div>
-            <!------------------ DESCRIPCION DE CAMPAÑA ------------------------>
-            <div>
-                <label for="">Descripción de campaña:</label>
-                <p>{{descripcion_campania.descripcion}}</p>
-            </div>
-            <!------------------ SECCION INFO CONTACTO ------------------------>
-            <div>
-                <h2>Datos del eO</h2>
-                <label for="">Número de distribuidor:</label>
-                <label for="">{{contacto.num_dist}}</label>
-                <label for="">Nombre:</label>
-                <label for="">{{contacto.nombre}}</label>
-                <label for="">Descuento:</label>
-                <label for="">{{contacto.descuento_choice}}</label>
-                <label for="">Teléfono casa:</label>
-                <label for="">{{contacto.tel_casa}}</label>
-                <label for="">Celular:</label>
-                <label for="">{{contacto.tel_cel}}</label>
-                <label for="">País:</label>
-                <label for="">{{contacto.pais}}</label>
-                <label for="">Estado:</label>
-                <label for="">{{contacto.estado}}</label>
-                <label for="">Centro de alta:</label>
-                <label for="">{{contacto.centro_alta}}</label>
-                <label for="">Email:</label>
-                <label for="">{{contacto.email}}</label>
-                <label for="">Fecha última compra:</label>
-                <label for="">{{contacto.fecha_ultima_compra}}</label>
-                <label for="">Meses sin compra:</label>
-                <label for="">{{contacto.meses_sin_compra}}</label>
-                <label for="">Fecha de alta:</label>
-                <label for="">{{contacto.fecha_alta}}</label>
-                <label for="">Sexo:</label>
-                <label for="">{{contacto.sexo}}</label>
-                <label for="">Fecha de nacimiento:</label>
-                <label for="">{{contacto.fecha_nacimiento}}</label>
-                <label for="">Puntos totales:</label>
-                <label for="">{{contacto.total_puntos}}</label>
-            </div>
-            <!------------------ Checkbox Remarcar ------------------------>
-            <div>
-                <label><input type="checkbox" id="" name = "check_remarcar" value="True">Remarcar</label>
-            </div>
-            <!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
-            <div>
-                <label for="">Registro exitoso</label>
-                <select name="registro_exitoso" id="">
-                    <option value="">----------</option>
-                    {% for i in registros_exitosos %}
-                        <option value="{{i.razon}}">{{i.razon}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
-            <div>
-                <label for="">Registro no exitoso</label>
-                <select name="registro_no_exitoso" id="">
-                    <option value="">----------</option>
-                    {% for i in registros_no_exitosos %}
-                        <option value="{{i.razon}}">{{i.razon}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <!------------------ SELECCION DE COMENTARIO ------------------------>
-            <textarea name="textarea" rows="10" cols="50">Deja tus comentarios aquí</textarea>
-            <!------------------ BOTON ENVIAR ------------------------>
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
+<!------------------ SECCION FORMULARIO------------------------>
+<form action="{% url 'submit_registro' cedi_select pais_select campania_select contacto.num_dist %}"
+      method="post">
+	{% csrf_token %}
+	<!------------------ SECCION INFORMATIVA------------------------>
+	<div class="container form-control mt-2 mb-2">
 
+		<div class="row">
+			<div class="col">
+				<label for="">País:</label>
+				<label for="">{{pais_select}}</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<label for="">CEDIS:</label>
+				<label for="">{{cedi_select}}</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<label for="">Campaña:</label>
+				<label for="">{{campania_select}}</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<!------------------ DESCRIPCION DE CAMPAÑA ------------------------>
+				<label for="">Descripción de campaña:</label>
+				<label for="">{{descripcion_campania.descripcion}}</label>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div class="row justify-content-start">
+			<p class="col-6 text-start fs-4">Datos del empresario</p>
+		</div>
+	</div>
+
+
+	<!------------------ SECCION INFO CONTACTO ------------------------>
+	<div class="container form-control ps-3 pe-3">
+		<div class="row">
+			<div class="border col-4">
+				<label for="">Número de distribuidor:</label>
+				<label for="">{{contacto.num_dist}}</label>
+			</div>
+			<div class="border col-6">
+				<label for="">Nombre:</label>
+				<label for="">{{contacto.nombre}}</label>
+			</div>
+			<div class="border col-2">
+				<label for="">Descuento:</label>
+				<label for="">{{contacto.descuento_choice}}</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="border col">
+				<label for="">Teléfono casa:</label>
+				<label for="">{{contacto.tel_casa}}</label>
+			</div>
+			<div class="border col">
+				<label for="">Celular:</label>
+				<label for="">{{contacto.tel_cel}}</label>
+			</div>
+			<div class="border col">
+				<label for="">País:</label>
+				<label for="">{{contacto.pais}}</label>
+			</div>
+			<div class="border col">
+				<label for="">Estado:</label>
+				<label for="">{{contacto.estado}}</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="border col">
+				<label for="">Centro de alta:</label>
+				<label for="">{{contacto.centro_alta}}</label>
+			</div>
+			<div class="border col">
+				<label for="">Email:</label>
+				<label for="">{{contacto.email}}</label>
+			</div>
+			<div class="border col-5">
+				<label for="">Fecha última compra:</label>
+				<label for="">{{contacto.fecha_ultima_compra}}</label>
+			</div>
+			<div class="border col">
+				<label for="">Meses sin compra:</label>
+				<label for="">{{contacto.meses_sin_compra}}</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="border col-4">
+				<label for="">Fecha de alta:</label>
+				<label for="">{{contacto.fecha_alta}}</label>
+			</div>
+			<div class="border col-1">
+				<label for="">Sexo:</label>
+				<label for="">{{contacto.sexo}}</label>
+			</div>
+			<div class="border col-4">
+				<label for="">Fecha de nacimiento:</label>
+				<label for="">{{contacto.fecha_nacimiento}}</label>
+			</div>
+			<div class="border col">
+				<label for="">Puntos totales:</label>
+				<label for="">{{contacto.total_puntos}}</label>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container form-control mt-2">
+		<!------------------ Checkbox Remarcar ------------------------>
+		<div class="row justify-content-center form-switch mb-3 ">
+			<input class="form-check-input" type="checkbox" name="check_remarcar" value="True" id="check_btn_1" onclick="chequeo(this)">
+		</div>
+		<!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
+		<div class="row justify-content-center">
+			<div class="col col-lg-4">
+				<label class="input-group-text">Registro exitoso</label>
+				<select class="form-select" name="registro_exitoso" id="regis_exitoso">
+					<option selected>----------</option>
+					{% for i in registros_exitosos %}
+					<option value="{{i.razon}}">{{i.razon}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<!------------------ SELECCION DE REGISTRO EXITOSO ------------------------>
+			<div class="col col-lg-4 ">
+				<label class="input-group-text">Registro no exitoso</label>
+				<select class="form-select"  name="registro_no_exitoso" id="regis_no_exitoso">
+					<option value="">----------</option>
+					{% for i in registros_no_exitosos %}
+					<option value="{{i.razon}}">{{i.razon}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-5 mt-3">
+				<!------------------ SELECCION DE COMENTARIO ------------------------>
+				<textarea class="form-control" placeholder="Deja tus comentarios aquí" name="textarea" rows="5"
+			                cols="50"></textarea>
+			</div>
+		</div>
+	</div>
+	<!------------------ BOTON ENVIAR ------------------------>
+	<div class="container col-1 mt-2">
+		<div class="row justify-content-center">
+			<input class="form-control  btn-outline-primary" type="submit" value="Enviar">
+		</div>
+	</div>
+</form>
+
+<script type="text/javascript" src="{% static 'formulario/js/index.js' %}"></script>
 {% endblock content %}
+
+
+	
+
+
+{% comment %} {% block script %}
+	<script type="text/javascript" src="{% static 'formulario/static/formulario/js/index.js' %}"></script>
+{% endblock script %} {% endcomment %}
+
 
