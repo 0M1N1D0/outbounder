@@ -5,11 +5,11 @@
 {% block content %}
 
 
-  
-        <!------------------ SECCION FORMULARIO------------------------>
-        <form action="{% url 'submit_registro' cedi_select pais_select campania_select contacto.num_dist %}" method="post">
-            {% csrf_token %}
-          <!------------------ SECCION INFORMATIVA------------------------>
+
+<!------------------ SECCION FORMULARIO------------------------>
+<form action="{% url 'submit_registro' cedi_select pais_select campania_select contacto.num_dist %}" method="post">
+{% csrf_token %}
+    <!------------------ SECCION INFORMATIVA------------------------>
 	<div class="container form-control mt-2 mb-2">
 
 		<div class="row">
@@ -161,6 +161,7 @@
 			<input class="form-control  btn-outline-primary" type="submit" value="Enviar">
 		</div>
 	</div>
-        </form>
+</form>
 
+<script type="text/javascript" src="{% static 'formulario/js/main.js' %}"></script>
 {% endblock content %}

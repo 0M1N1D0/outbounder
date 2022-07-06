@@ -1,6 +1,8 @@
 
 
+from tkinter.messagebox import NO
 from django.http import Http404
+from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import render
 from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
 
@@ -59,8 +61,19 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 
     # obtención de datos
     check = request.POST.get('check_remarcar')
-    registro_exitoso = request.POST['registro_exitoso']
-    registro_no_exitoso = request.POST['registro_no_exitoso']
+
+    # este try es por la funcionalidad de disable con javascript en el archivo main.js, ya que al implementarla, arrojaba ese error. Se hace lo mismo con la variable registro_no_exitoso
+
+    try:
+        registro_exitoso = request.POST['registro_exitoso']
+    except MultiValueDictKeyError:
+        registro_exitoso = None
+        
+    try:
+        registro_no_exitoso = request.POST['registro_no_exitoso']
+    except MultiValueDictKeyError:
+        registro_no_exitoso = None
+
     textarea = request.POST['textarea']
 
     # si no se hace click en el checkbox, se asigna False
