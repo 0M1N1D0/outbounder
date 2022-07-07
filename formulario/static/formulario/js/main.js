@@ -7,19 +7,20 @@
 
 document.getElementById('regis_no_exitoso').disabled = true;
 
-console.log("prueba 2 ")
-
 //check_btn_1.style.backgroundColor ="#0d6efd";
 
 function chequeo(checkbox){
     if(checkbox.checked){
-        //console.log(regis_exitoso);
-        //check_btn_1.style.backgroundColor = "#dc3545"
+        // console.log('Encendido!');
         document.getElementById('regis_no_exitoso').disabled = false;
+        // limpia el valor seleccionado antes de inhabilitarlo
+        document.getElementById("regis_exitoso").options.item(0).selected = 'selected';
         document.getElementById('regis_exitoso').disabled = true;
     }
     else{
-        console.log('Checkbox has been unticked!');
+        // console.log('Apagado!');
+        // limpia el valor seleccionado antes de inhabilitarlo
+        document.getElementById("regis_no_exitoso").options.item(0).selected = 'selected';
         document.getElementById('regis_no_exitoso').disabled = true;
         document.getElementById('regis_exitoso').disabled = false;
     }

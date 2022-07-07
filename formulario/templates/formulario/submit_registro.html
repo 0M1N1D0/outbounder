@@ -19,12 +19,12 @@
                       <p class="card-text">Presiona regresar para continuar con el siguiente contacto.</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Registros totales: {{registros_totales}}</li>
-                      <li class="list-group-item">Registros no exitosos: {{total_no_exitosos}}</li>
-                      <li class="list-group-item">Registros exitosos: {{total_exitosos}}</li>
+                      <li class="list-group-item"><strong>Registros totales: </strong>{{registros_totales}}</li>
+                      <li class="list-group-item"><strong>Registros no exitosos: </strong>{{total_no_exitosos}}</li>
+                      <li class="list-group-item"><strong>Registros exitosos: </strong>{{total_exitosos}}</li>
                     </ul>
                     <div class="card-body text-center">
-                        <button class="btn btn-primary"><a class="enlace" href= "{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Nuevo Contacto</a></button>
+                        <a class="btn btn-primary" href= "{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Nuevo Contacto</a>
                     </div>
                 </div>
             </div>
