@@ -32,8 +32,25 @@
         
     {% else %} 
         <!--Si se acaban los registros no exitosos, muestra el mensaje y el regreso al index-->
-        <Label>Se han completado los registros de la campaña: {{campania}} en el CEDIS:{{cedis}}</Label>
-        <a href="{% url 'index' %}">Regresar</a>    
+        <!-- CARD BOOTSTRAP ELSE -->
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="card border border-4" style="width: 30rem;">
+                    <div class="row justify-content-center">
+                        <img src="{% static 'formulario/img/warning.png' %}" class="card-img-top" style="width: 10rem;">
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Contactos agotados</h4>
+                            <p class="card-text">Contactos con estatus <em>remarcar</em> agotados en campaña: <em>{{campania}}</em>, CEDIS: <em>{{cedis}}</em>. Selecciona una nueva campaña y CEIDS.</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-2">
+                        <a href="{% url 'index' %}" class="btn btn-primary" style="width: 10rem;">Regresar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
 
 {% endblock content %}
