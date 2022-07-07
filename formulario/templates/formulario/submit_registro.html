@@ -5,31 +5,12 @@
 {% block content %}
     {% if registros_totales != total_exitosos %}
     
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'formulario/css/submit.css' %}">
-    {% comment %}
-        Si aún hay registros en no exitoso, muestra la información    
-    {% endcomment %}
-        {% comment %} 
-        <div class="container">
-            <h1>Registro guardado exitosamente</h1>
-            <label for="">País: </label>
-            <label for="">{{pais}}</label>
-            <label for="">CEDI: </label>
-            <label for="">{{cedis}}</label>
-            <label for="">Campaña: </label>
-            <label for="">{{campania}}</label>
-            <label for="">Registros totales: </label>
-            <label for="">{{registros_totales}}</label>
-            <label for="">Registros no exitosos: </label>
-            <label for="">{{total_no_exitosos}}</label>
-            <label for="">Registros exitosos: </label>
-            <label for="">{{total_exitosos}}</label>
-            <a href= "{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Regresar</a>
-        </div> 
-        {% endcomment %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'formulario/css/submit.css' %}">
+    
+        <!-- Si aún hay registros en no exitoso, muestra la información -->
 
-        {% comment %} CARD BOOTSTRAP {% endcomment %}
+        <!-- CARD BOOTSTRAP -->
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="card" style="width: 30rem;">
@@ -50,10 +31,8 @@
         </div>
         
     {% else %} 
-    {% comment %}
-        Si se acaban los registros no exitosos, muestra el mensaje y el regreso al index
-    {% endcomment %}  
-        <Label>Se han han completado los registros de la campaña: {{campania}} en el CEDIS:{{cedis}}</Label>
+        <!--Si se acaban los registros no exitosos, muestra el mensaje y el regreso al index-->
+        <Label>Se han completado los registros de la campaña: {{campania}} en el CEDIS:{{cedis}}</Label>
         <a href="{% url 'index' %}">Regresar</a>    
     {% endif %}
 
