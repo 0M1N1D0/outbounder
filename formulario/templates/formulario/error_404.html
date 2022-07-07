@@ -3,13 +3,16 @@
 {% block title %}Error 404{% endblock title %}
 
 {% block content %}
-    {% load static %}
+    
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="card border border-4" style="width: 30rem;">
+                <!--  
                 <div class="row justify-content-center">
-                    <img src="{% static 'formulario/img/danger.png' %}" class="card-img-top" style="width: 10rem;">
+                    {% load static %}
+                    <img src="{% static 'formulario\img\danger.png' %}" class="card-img-top" style="width: 10rem;">
                 </div>
+                -->
                 <div class="row justify-content-center">
                     <div class="card-body">
                         <h4 class="card-title text-center">No existen registros</h4>
