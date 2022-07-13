@@ -1,6 +1,8 @@
 
 
+from tkinter.messagebox import NO
 from django.http import Http404
+from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import render
 from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
 
@@ -32,7 +34,7 @@ def index(request):
 # TODO: hacer select dependientes
 
 # ##############################################
-# VISTA FORMULARIO
+# VISTA FORMULARIO 
 # ##############################################
 def formulario(request):
 
@@ -48,7 +50,7 @@ def formulario(request):
     return render(request, 'formulario/formulario.html', context=context)
 
 # ##############################################
-# VISTA SUBMIT REGISTRO
+# VISTA SUBMIT REGISTRO TODO: modal en el else del submit_registro.html
 # ##############################################
 # El nombre del parámetro deberá ser igual en la vista y en la url, sino 
 # desatará un error de submit_registro() got an unexpected keyword argument
@@ -59,8 +61,19 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 
     # obtención de datos
     check = request.POST.get('check_remarcar')
-    registro_exitoso = request.POST['registro_exitoso']
-    registro_no_exitoso = request.POST['registro_no_exitoso']
+
+    # este try es por la funcionalidad de disable con javascript en el archivo main.js, ya que al implementarla, arrojaba ese error. Se hace lo mismo con la variable registro_no_exitoso
+
+    try:
+        registro_exitoso = request.POST['registro_exitoso']
+    except MultiValueDictKeyError:
+        registro_exitoso = None
+        
+    try:
+        registro_no_exitoso = request.POST['registro_no_exitoso']
+    except MultiValueDictKeyError:
+        registro_no_exitoso = None
+
     textarea = request.POST['textarea']
 
     # si no se hace click en el checkbox, se asigna False
@@ -110,10 +123,26 @@ def submit_registro(request, cedis, pais, campania, num_dist):
         registro = Resultado(contacto=contacto, registro_no_exi=reg_no_exi, registro_exi=reg_exi, comentario=textarea, remarcar=check)
         registro.save()
 
+
+    # obtiene los contactos con la campaña y cedis seleccionado
+    registros = Contacto.objects.filter(campania=campania).filter(cedis=cedis)
+    # registros_totales: obtiene el conteo de los contactos totales de esa campaña
+    registros_totales = Contacto.objects.filter(num_dist__in =  registros).count()
+    # total_no_exitosos: obtiene el conteo de los contactos que ya se les marcó pero están 
+    # en estatus remarcar True
+    total_no_exitosos = Resultado.objects.filter(remarcar = True).count() 
+    # total_exitosos: obtiene el conteo de los contactos que ya se les marcó y están 
+    # en estatus remarcar False
+    total_exitosos = Resultado.objects.filter(remarcar = False).count() 
+
+    
     context={
         'cedis':cedis,
         'pais': pais,
         'campania':campania,
+        'registros_totales': registros_totales,
+        'total_no_exitosos': total_no_exitosos,
+        'total_exitosos': total_exitosos,
     }
 
 
@@ -122,8 +151,6 @@ def submit_registro(request, cedis, pais, campania, num_dist):
     contac = Contacto.objects.get(num_dist=num_dist)
     result = Resultado.objects.get(contacto=contacto)
 
-    print(contac)
-    print(result)
 
     # registro en el modelo Backup del contacto en cuestión
     backup = Backup(
@@ -160,12 +187,15 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 # ##############################################
 # VISTA FORMULARIO 2
 # ##############################################
-def formulario2(request, pais, cedis, campania):
+def formulario2(request, pais, cedis, campania, registros_totales, total_no_exitosos, total_exitosos):
     pais_select = pais
     cedi_select = cedis
     campania_select = campania
 
     context = consulta(pais_select, cedi_select, campania_select)
+    context['registros_totales'] = registros_totales
+    context['total_no_exitosos'] = total_no_exitosos
+    context['total_exitosos'] = total_exitosos
 
     return render(request, 'formulario/formulario2.html', context=context)
 

@@ -1,0 +1,35 @@
+
+/*******************************
+ hover para navbar 
+********************************/
+.navbar {
+    background-color: #A439BA;
+    font-size: 20px;
+}
+
+.nav-item .nav-link{
+    color: white;
+}
+
+.nav-item .nav-link:hover{
+    color: #C8C8C8;
+    
+}
+
+.miTexarea {
+  resize: none;
+}
+
+/*******************************
+ tamaño para checkbox
+********************************/
+.form-switch .form-check-input[type=checkbox] {
+    width: 50px;
+    height: 25px;
+}
+
+
+
+
+
+

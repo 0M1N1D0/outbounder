@@ -1,8 +1,6 @@
-from dataclasses import fields
-from pyexpat import model
 from django.contrib import admin
 from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
-from import_export.admin import ExportActionMixin, ImportMixin, ImportExportModelAdmin, ImportExportMixin, ExportMixin
+from import_export.admin import ImportExportMixin, ExportMixin
 from import_export import resources # para exportar a excel desde el admin site
 
 # ***************** REGISTROS NORMALES *******************
@@ -33,7 +31,8 @@ class CampaniaResource(resources.ModelResource):
     class Meta:
         model = Campania
         import_id_fields = ('nombre',)
-        fields = ('nombre', 'descripcion', 'fecha_creacion')
+        # TODO: agregar columna para exportacion cedis
+        fields = ('nombre', 'descripcion', 'fecha_creacion', 'cedis')
 
 
 # *************************************************************
@@ -41,16 +40,21 @@ class CampaniaResource(resources.ModelResource):
 # *************************************************************
 @admin.register(Campania)
 class CampaniaAdmin(ImportExportMixin, admin.ModelAdmin):   
+
     # conecta con CampaniaResource
     resource_class = CampaniaResource 
-    list_display = ('nombre', 'display_cedis')
-    list_filter = ('nombre',)
-    # fields = ['fecha_creacion', 'fecha_modificacion']
+    list_display = ('nombre', 'descripcion', 'get_cedis')
+    list_filter = ('nombre', 'cedis')
     readonly_fields = ('fecha_creacion', 'fecha_modificacion')
-    search_fields = ['nombre', 'cedis']
+    search_fields = ['nombre',] 
 
+    # def get_cedis(self, obj):
+    #     return ", ".join([i.nombre for i in obj.cedis.all()])
+
+    
+    
     # Edición de nombre de columna de "display_cedis" a "Cedis"
-    Campania.display_cedis.short_description = "Cedis"
+    Campania.get_cedis.short_description = "cedis"
 
 
 # *************************************************************
@@ -134,12 +138,19 @@ class ContactoAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = ContactoResource
 
     # metodo para mostrar la FK campania
-    def mostrar_campania(self, obj):
+    def campania(self, obj):
         if obj.campania:
             return obj.campania.nombre
 
-    list_display = ('num_dist', 'mostrar_campania', 'fecha_creacion')
-    # search_fields = ['codigo_eo', 'descuento']
+    # metodo para mostrar la FK cedis
+    def cedis(self, obj):
+        if obj.cedis:
+            return obj.cedis.nombre
+
+    list_display = ('num_dist', 'nombre', 'campania', 'cedis', 'tel_casa', 'tel_cel')
+    list_filter = ('cedis', 'campania')
+    readonly_fields = ('fecha_creacion',)
+    search_fields = ['num_dist', 'nombre', 'campania__nombre', 'cedis__nombre']
     # list_editable = ['display_campania']
 
 
@@ -168,14 +179,20 @@ class ResultadoResource(resources.ModelResource):
 class ResultadoAdmin(ExportMixin, admin.ModelAdmin):
 
     # método para mostrar en list_display un campo de tabla foránea 
-    def mostrar_campania(self, obj):
+    def campania(self, obj):
         if obj.contacto:
             return obj.contacto.campania
 
-    list_display = ('contacto', 'remarcar', 'ultima_interaccion', 'mostrar_campania')
-    list_filter = ('contacto__campania', 'remarcar')
-    search_fields = ['contacto__num_dist',]
-    # readonly_fields = [] 
+    # método para mostrar en list_display un campo de tabla foránea 
+    def cedis(self, obj):
+        if obj.contacto:
+            return obj.contacto.cedis
+
+
+    list_display = ('contacto', 'remarcar', 'ultima_interaccion', 'campania', 'cedis')
+    list_filter = ('contacto__cedis', 'contacto__campania', 'remarcar')
+    # search_fields = ['contacto__num_dist', 'remarcar']
+    readonly_fields = ['fecha_primer_contacto',] 
 """
 mandar llamar al list_display un campo de una tabla con relacion manytomany
 Resultado.display_campania.short_description = 'Campaña'
@@ -197,6 +214,11 @@ class BackupAdmin(ExportMixin, admin.ModelAdmin):
         'registro_no_exi',
         'registro_exi',
         'remarcar',
+        'fecha_interaccion',
     )
+
+    list_filter = ('cedi', 'campania', 'registro_no_exi', 'registro_exi', 'remarcar')
+    search_fields = ['num_dist', 'nombres', 'campania', 'cedi', 'registro_no_exi', 'registro_exi']
+
 admin.site.register(Backup, BackupAdmin)
     

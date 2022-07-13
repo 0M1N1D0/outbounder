@@ -3,57 +3,81 @@
 {% block title %}Index page{% endblock title %}
 
 {% block content %}
-    <h1>Vista Index</h1>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'formulario/css/index.css' %}">
+
+    <!-- Imagen de fondo -->
+    <body background="{% static 'formulario/img/Fondo50.png' %}">
     
-    <form action="/formulario/" method="post">
-    {% csrf_token %}
-    {% comment %} 
-        *************************************************
-        SELECCION DE PAIS
-        ************************************************* 
-    {% endcomment %}
-        <label for="">PAIS</label>
-        <select name="select_pais" id="">
-            <option value="">----------</option>
-            {% for i in pais %}
-                <option value="{{i}}">{{i}}</option>
-            {% endfor %}
-        </select>
-    {% comment %} 
-        *************************************************
-        SELECCION DE CEDIS
-        ************************************************* 
-    {% endcomment %}
-    <!-- SELECT CEDIS -->
-        <label for="">CEDIS</label>
-        <select name="select_cedis" id="">
-            <option value="">----------</option>
-            {% for i in cedi %}
-                <option value="{{i}}">{{i}}</option>
-            {% endfor %}
-        </select>
-    {% comment %} 
-        *************************************************
-        SELECCION DE CAMPAÑA
-        ************************************************* 
-    {% endcomment %}
-    <!-- SELECT CAMPAÑA -->
-        <label for="">CAMPAÑA</label>
-        <select name="select_campania" id="">
-            <option value="">----------</option>
-            {% for j in campania %}
-                <option value="{{j}}">{{j}}</option>
-            {% endfor %}
-        </select>
- 
-        <input type="submit" value="Enviar">
-        {% if lista_cedis %}
-            {% for i in lista_cedis %}
-                <p>{{i}}</p>
-            {% endfor %}
-        {% else %}
-        {% endif %}
-    </form>
+   
+        <div class="container col-3 rounded-3 text-center pt-3 shadow-lg" style="margin-top: 7rem; background-color:rgba(255,255,255,0.8);">
+            <form action="{% url 'formulario' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <h3 class="fw-bold">Seguimiento de campañas</h3>
+                </div>
+        
+                {% comment %}
+                *************************************************
+                SELECCION DE PAIS
+                *************************************************
+                {% endcomment %}
+                <div class="row m-2 justify-content-center">
+                    <select class="form-select rounded-3 theme-color-warning" name="select_pais" id="pais_select">
+                        <option disabled selected hidden>País</option>
+        
+                        {% for i in pais %}
+                            <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+        
+                </div>
+                {% comment %}
+                *************************************************
+                SELECCION DE CEDIS
+                *************************************************
+                {% endcomment %}
+                <!-- SELECT CEDIS -->
+                <div class="row m-2 justify-content-center">
+                    <select class="form-select rounded-3" name="select_cedis" id="">
+                        <option value="" disabled selected hidden>CEDI</option>
+                        {% for i in cedi %}
+                            <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% comment %}
+                *************************************************
+                SELECCION DE CAMPAÑA
+                *************************************************
+                {% endcomment %}
+                <!-- SELECT CAMPAÑA -->
+                <div class="row m-2 justify-content-center">
+                    <select class="form-select rounded-3" name="select_campania" id="">
+                        <option value="" disabled selected hidden>Campaña</option>
+                        {% for j in campania %}
+                            <option value="{{j}}">{{j}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% comment %}
+                *************************************************
+                BOTON ENVIAR
+                *************************************************
+                {% endcomment %}
+                <div class="row justify-content-center mt-4">
+                    <input class="col-5 btn btn-warning rounded-0 " type="submit" value="Enviar">
+                </div>
+                <div class="row justify-content-center mt-4">
+                    <p class="">
+                    ¿Tienes problemas para ingresar? Contáctanos al correo <strong>sergio.mascorro@omnilife.com</strong> o a la extensión <strong>6662</strong>.
+                    </p>
+                </div>
+        
+            </form>
+        </div>
+
+    </body>
 {% endblock content %}
 
 

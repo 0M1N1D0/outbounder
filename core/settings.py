@@ -14,8 +14,9 @@ import os
 from pathlib import Path
 import environ # para las variables de entorno
 
+
 env = environ.Env()
-env.read_env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,10 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+# DEBUG = env.bool('DEBUG', default=False)
+DEBUG = False 
+# DEBUG404 = True
 
 # se puso el host al cambiar DEBUG a False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -37,6 +40,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface', # django-admin-interface
+    'colorfield', # django-admin-interface
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +54,8 @@ INSTALLED_APPS = [
     # 'django_extensions',  extensiones para comando runscript
     'import_export', # para exportar a excel desde el admin site
 ]
+
+X_FRAME_OPTIONS='SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,7 +72,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # os.path.join(BASE_DIR, 'templates')
+        'DIRS': [os.path.join(BASE_DIR, 'templates/')], # os.path.join(BASE_DIR, 'templates')
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,7 +138,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# url donde están los archivos estáticos
+STATIC_URL = '/static/'
+# otros directorios en donde puede haber más archivos estáticos  
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+# en producción como los archivos estáticos deben de ir 
+# en un solo directorio, en esta url se copiarán todos los directorios 
+# que tengan archivos estáticos, esto es, la STATIC_URL y los 
+# directorios guardados en STATICFILES_DIRS
+
+STATIC_ROOT  = os.path.join(BASE_DIR, 'staticfiles')
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
