@@ -4,8 +4,6 @@
 
 {% block content %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'formulario/css/index.css' %}">
-
     <!-- Imagen de fondo -->
     <body background="{% static 'formulario/img/Fondo50.png' %}">
     
@@ -16,44 +14,31 @@
                 <div class="row">
                     <h3 class="fw-bold">Seguimiento de campañas</h3>
                 </div>
-        
-                {% comment %}
-                *************************************************
-                SELECCION DE PAIS
-                *************************************************
-                {% endcomment %}
+    
+                <!-- SELECT PAIS -->
+                <!-- IMPORTANTE: el atributo value="" es necesario para que el required funcione -->
                 <div class="row m-2 justify-content-center">
-                    <select class="form-select rounded-3 theme-color-warning" name="select_pais" id="pais_select">
-                        <option disabled selected hidden>País</option>
-        
+                    <select class="form-select rounded-3" name="select_pais" id="pais_select" required>
+                        <option value="" disabled selected hidden>País</option>
                         {% for i in pais %}
                             <option value="{{i}}">{{i}}</option>
                         {% endfor %}
                     </select>
-        
                 </div>
-                {% comment %}
-                *************************************************
-                SELECCION DE CEDIS
-                *************************************************
-                {% endcomment %}
+ 
                 <!-- SELECT CEDIS -->
                 <div class="row m-2 justify-content-center">
-                    <select class="form-select rounded-3" name="select_cedis" id="">
+                    <select class="form-select rounded-3" name="select_cedis" id="" required>
                         <option value="" disabled selected hidden>CEDI</option>
                         {% for i in cedi %}
                             <option value="{{i}}">{{i}}</option>
                         {% endfor %}
                     </select>
                 </div>
-                {% comment %}
-                *************************************************
-                SELECCION DE CAMPAÑA
-                *************************************************
-                {% endcomment %}
+
                 <!-- SELECT CAMPAÑA -->
                 <div class="row m-2 justify-content-center">
-                    <select class="form-select rounded-3" name="select_campania" id="">
+                    <select class="form-select rounded-3" name="select_campania" id="" required>
                         <option value="" disabled selected hidden>Campaña</option>
                         {% for j in campania %}
                             <option value="{{j}}">{{j}}</option>
@@ -66,7 +51,7 @@
                 *************************************************
                 {% endcomment %}
                 <div class="row justify-content-center mt-4">
-                    <input class="col-5 btn btn-warning rounded-0 " type="submit" value="Enviar">
+                    <input class="col-5 btn btn-warning rounded-0" type="submit" value="Enviar">
                 </div>
                 <div class="row justify-content-center mt-4">
                     <p class="">

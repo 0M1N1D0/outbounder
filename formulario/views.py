@@ -1,5 +1,4 @@
 
-
 from tkinter.messagebox import NO
 from django.http import Http404
 from django.utils.datastructures import MultiValueDictKeyError
@@ -221,7 +220,7 @@ def consulta(pais, cedi, campania):
 
 
     # obtiene los querysets de los contactos que son de la campaña y cedis seleccionado
-    lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select)
+    lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select).filter(pais=pais_select)
     # lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
 
 
