@@ -85,7 +85,7 @@ class Contacto(models.Model):
     nombre = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10, choices = DESCUENTO_CHOICES, default='20')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    #fecha_modificacion = models.DateTimeField(auto_now=True)
+    # fecha_modificacion = models.DateTimeField(auto_now=True)
     tel_casa = models.CharField(verbose_name='teléfono', max_length=10)
     tel_cel = models.CharField(verbose_name='ceclular', max_length=10)
     pais = models.CharField(max_length=100)
@@ -165,7 +165,7 @@ class RegistroNoExitoso(models.Model):
 # *********************************************************
 class Resultado(models.Model):
 
-    contacto = models.ForeignKey(Contacto, verbose_name='número de empresario', on_delete=models.CASCADE)
+    contacto = models.ForeignKey(Contacto, unique=False, verbose_name='número de empresario', on_delete=models.CASCADE)
     registro_no_exi = models.ForeignKey(RegistroNoExitoso, on_delete=models.CASCADE, null=True, blank=True)
     registro_exi = models.ForeignKey(RegistroExitoso, on_delete=models.CASCADE, null=True, blank=True)
     comentario = models.TextField()
