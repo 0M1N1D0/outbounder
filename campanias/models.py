@@ -52,11 +52,10 @@ class Campania(models.Model):
     """
     # TODO: agregar el campo cedis a la list_display
     def get_cedis(self):
-        # nombre: campo de la tabla foranea que queremos mostrar
+        # nombre: campo de la tabla foránea que queremos mostrar
         # cedis: atributo cedis del modelo Campania
         lista_cedis = ", ".join([i.nombre for i in self.cedis.all()])
         return lista_cedis
-
 
     class Meta:
         verbose_name = 'Campaña'
@@ -81,9 +80,9 @@ class Contacto(models.Model):
         ('F', 'F'),
     ]
 
-    num_dist = models.CharField(verbose_name='Número de empresario', max_length=20, primary_key=True, unique=False)
+    num_dist = models.CharField(verbose_name='Número de empresario', max_length=20, unique=False)
     nombre = models.CharField(max_length=200)
-    descuento_choice = models.CharField(max_length=10, choices = DESCUENTO_CHOICES, default='20')
+    descuento_choice = models.CharField(max_length=10, choices=DESCUENTO_CHOICES, default='20')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     # fecha_modificacion = models.DateTimeField(auto_now=True)
     tel_casa = models.CharField(verbose_name='teléfono', max_length=10)
@@ -95,7 +94,7 @@ class Contacto(models.Model):
     fecha_ultima_compra = models.DateField()
     meses_sin_compra = models.IntegerField()
     fecha_alta = models.DateField()
-    sexo = models.CharField(max_length=2, choices = SEXO_CHOICES, default = 'M')
+    sexo = models.CharField(max_length=2, choices=SEXO_CHOICES, default='M')
     fecha_nacimiento = models.DateField()
     total_puntos = models.IntegerField()
     campania = models.ForeignKey(Campania, verbose_name='campaña', on_delete=models.CASCADE)

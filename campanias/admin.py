@@ -104,6 +104,7 @@ class ContactoResource(resources.ModelResource):
     class Meta:
         model = Contacto
         import_id_fields = ('num_dist',)
+        # TODO: revisar qué campos son los requeridos
         fields = (
             'num_dist',
             'nombre',
