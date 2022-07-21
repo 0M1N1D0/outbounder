@@ -159,7 +159,7 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 
 	# registro en el modelo Backup del contacto en cuestión
 	# contacto = contac
-	backup = Backup(
+	Backup(
 		num_dist=num_dist,
 		nombres=contacto.nombre,
 		descuento_choice=contacto.descuento_choice,
@@ -181,9 +181,7 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 		registro_exi=registro_exitoso,
 		comentario=result.comentario,
 		remarcar=result.remarcar
-	)
-
-	backup.save()
+	).save()
 	return render(request, 'formulario/submit_registro.html', context=context)
 
 

@@ -172,8 +172,6 @@ class Resultado(models.Model):
     fecha_primer_contacto = models.DateField(auto_now_add=True) 
     # ? fecha_modificacion = models.DateField(auto_now=True)
     ultima_interaccion = models.DateTimeField(auto_now=True)
-    
-   # campania = Contacto.objects.all().select_related('campania')
 
     def __str__(self):
         # se transforma a str() porque si no devuelve un error 
@@ -184,7 +182,7 @@ class Resultado(models.Model):
 # modelo Backup
 # *********************************************************
 class Backup(models.Model):
-    num_dist = models.CharField(verbose_name='número de empresario', max_length=20, primary_key=True, unique=False)
+    num_dist = models.CharField(verbose_name='número de empresario', max_length=20, unique=False)
     nombres = models.CharField(max_length=200)
     descuento_choice = models.CharField(max_length=10)
     tel_casa = models.CharField(verbose_name='teléfono', max_length=10)
