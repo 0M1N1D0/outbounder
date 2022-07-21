@@ -112,8 +112,8 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 	# confirma que el contacto ya exista en el modelo Resultado
 	existe_en_resultado = Resultado.objects.filter(contacto=id_contacto).exists()
 
-	# si existe en resultado, actualiza el registro (vuelve a reescribir el contacto), y se modifica
-	# automáticamente la hora de actualiación. Si el registro aún
+	# Si existe en resultado, actualiza el registro (vuelve a reescribir el contacto), y se modifica
+	# automáticamente la hora de actualización. Si el registro aún
 	# no existe en el modelo Resultado, lo crea.
 	if existe_en_resultado:
 		reg = Resultado.objects.get(contacto=id_contacto)
@@ -129,6 +129,9 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 		                     remarcar=check)
 		registro.save()
 
+	# *****************************************************************
+	# CONTEO DE REGISTROS
+	# ****************************************************************
 	# Obtiene el conteo de los contactos totales de esa campaña y cedis seleccionados
 	registros_totales = contactos.count()
 	# Obtiene los contactos de Resultado que sean de la campaña y CEDIS seleccionado, después los filtra por remarcar
@@ -137,6 +140,7 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 	# Obtiene los contactos de Resultado que sean de la campaña y CEDIS seleccionado, después los filtra por no remarcar
 	# y al final los cuenta
 	total_exitosos = Resultado.objects.filter(contacto__in=contactos).filter(remarcar=False).count()
+	# ****************************************************************
 
 	context = {
 		'cedis': cedis,
