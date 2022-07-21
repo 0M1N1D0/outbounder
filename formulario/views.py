@@ -90,7 +90,9 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 	y estas se ponen en la creación del registro, ya que si 
 	se ponen las opciones en directo, da error. 
 	'''
+	# Obtiene los contactos de campaña, país y CEDIS seleccionados
 	contactos = Contacto.objects.filter(pais=pais).filter(cedis=cedis).filter(campania=campania)
+	# Obtiene el contacto con los datos seleccionados
 	contacto = contactos.get(num_dist=num_dist)
 
 	# si no encuentra registro, le asigna null
@@ -127,10 +129,8 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 		                     remarcar=check)
 		registro.save()
 
-	# obtiene los contactos con la campaña y cedis seleccionado
-	registros = Contacto.objects.filter(campania=campania).filter(cedis=cedis)
-	# registros_totales: obtiene el conteo de los contactos totales de esa campaña
-	registros_totales = Contacto.objects.filter(id__in=registros).count()
+	# Obtiene el conteo de los contactos totales de esa campaña y cedis seleccionados
+	registros_totales = contactos.count()
 	# total_no_exitosos: obtiene el conteo de los contactos que ya se les marcó, pero están
 	# en estatus remarcar True
 	total_no_exitosos = Resultado.objects.filter(remarcar=True).count()
