@@ -131,12 +131,12 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 
 	# Obtiene el conteo de los contactos totales de esa campaña y cedis seleccionados
 	registros_totales = contactos.count()
-	# total_no_exitosos: obtiene el conteo de los contactos que ya se les marcó, pero están
-	# en estatus remarcar True
-	total_no_exitosos = Resultado.objects.filter(remarcar=True).count()
-	# total_exitosos: obtiene el conteo de los contactos que ya se les marcó y están
-	# en estatus remarcar False
-	total_exitosos = Resultado.objects.filter(remarcar=False).count()
+	# Obtiene los contactos de Resultado que sean de la campaña y CEDIS seleccionado, después los filtra por remarcar
+	# y al final los cuenta
+	total_no_exitosos = Resultado.objects.filter(contacto__in=contactos).filter(remarcar=True).count()
+	# Obtiene los contactos de Resultado que sean de la campaña y CEDIS seleccionado, después los filtra por no remarcar
+	# y al final los cuenta
+	total_exitosos = Resultado.objects.filter(contacto__in=contactos).filter(remarcar=False).count()
 
 	context = {
 		'cedis': cedis,
