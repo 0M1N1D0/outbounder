@@ -24,6 +24,7 @@ id con la opción import_id_fields,
 sino daría un error de id
 '''
 
+
 # *************************************************************
 # CampaniaResource
 # *************************************************************
@@ -50,8 +51,6 @@ class CampaniaAdmin(ImportExportMixin, admin.ModelAdmin):
 
     # def get_cedis(self, obj):
     #     return ", ".join([i.nombre for i in obj.cedis.all()])
-
-    
     
     # Edición de nombre de columna de "display_cedis" a "Cedis"
     Campania.get_cedis.short_description = "cedis"
@@ -105,6 +104,7 @@ class ContactoResource(resources.ModelResource):
     class Meta:
         model = Contacto
         import_id_fields = ('num_dist',)
+        # TODO: revisar qué campos son los requeridos
         fields = (
             'num_dist',
             'nombre',
