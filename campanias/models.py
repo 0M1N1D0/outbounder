@@ -211,8 +211,7 @@ class Backup(models.Model):
 
         def __str__(self):
             return self.num_dist
-    
-    
+
 
 """
 MéTODO PARA USAR UN CAMPO de una tabla many to many en list_display
@@ -230,5 +229,3 @@ def display_campania(self):
 
 # class RegistrosNoExitoso(models.Model):
 #     descripcion = models.BooleanField(default=False)
-
-

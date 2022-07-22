@@ -140,6 +140,8 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 	# Obtiene los contactos de Resultado que sean de la campaña y CEDIS seleccionado, después los filtra por no remarcar
 	# y al final los cuenta
 	total_exitosos = Resultado.objects.filter(contacto__in=contactos).filter(remarcar=False).count()
+	# obtiene los registros totales sin marcar
+	total_sin_marcar = registros_totales - (total_exitosos + total_no_exitosos)
 	# ****************************************************************
 
 	context = {
@@ -149,6 +151,7 @@ def submit_registro(request, cedis, pais, campania, num_dist):
 		'registros_totales': registros_totales,
 		'total_no_exitosos': total_no_exitosos,
 		'total_exitosos': total_exitosos,
+		'total_sin_marcar': total_sin_marcar,
 	}
 
 	# se crean instancias de los modelos Contacto y Resultado
