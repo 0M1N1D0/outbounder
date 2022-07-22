@@ -4,9 +4,11 @@
 
 {% load static %}
 {% block content %}
-  <body background="{% static 'formulario/img/fondoformulario.png' %}">
-  {% if registros_totales != total_exitosos %}
+  <body>
+    <!-- Imagen de fondo -->
+    <style>body {background-image:url({% static 'formulario/img/fondoformulario.png' %});}</style>
 
+  {% if registros_totales != total_exitosos %}
 
     <link rel="stylesheet" href="{% static 'formulario/css/submit.css' %}">
 
