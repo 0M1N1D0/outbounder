@@ -8,6 +8,7 @@
 
 	<!------------------ SECCION FORMULARIO------------------------>
 	<body>
+    <link rel="stylesheet" href="{% static 'formulario/css/btn-enviar-form.css' %}">
     <!-- imagen de fondo -->
     <style>body {background-image: url({% static 'formulario/img/fondoformulario.png' %});}</style>
 
@@ -170,7 +171,7 @@
 			<!------------------ BOTON ENVIAR ------------------------>
 			<div class="container col-1 mt-3 mb-3">
 				<div class="row justify-content-center">
-					<input class="form-control btn btn-warning" type="submit" value="Enviar">
+					<input class="form-control btn fw-bold" type="submit" value="Enviar" id="btn-enviar">
 				</div>
 			</div>
 		</form>

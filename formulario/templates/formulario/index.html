@@ -4,6 +4,7 @@
 
 {% block content %}
   {% load static %}
+  <link rel="stylesheet" href="{% static 'formulario/css/btn-enviar-form.css' %}">
   <!-- Imagen de fondo -->
   <link rel="stylesheet" href="{% static 'formulario/css/image_background.css' %}">
 
@@ -55,7 +56,7 @@
                 *************************************************
                 {% endcomment %}
       <div class="row justify-content-center mt-4">
-        <input class="col-5 btn btn-warning rounded-0" type="submit" value="Enviar">
+        <input class="col-5 btn rounded-0 fw-bold" id="btn-enviar" type="submit" value="Enviar">
       </div>
       <div class="row justify-content-center mt-4">
         <p class="">
