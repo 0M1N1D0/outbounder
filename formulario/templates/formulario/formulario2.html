@@ -7,11 +7,15 @@
 {% block content %}
 
 	<!------------------ SECCION FORMULARIO------------------------>
-	<body background="{% static 'formulario/img/fondoformulario.png' %}">
+	<body>
+    <link rel="stylesheet" href="{% static 'formulario/css/btn-enviar-form.css' %}">
+    <!-- imagen de fondo -->
+    <style>body {background-image: url({% static 'formulario/img/fondoformulario.png' %});}</style>
+
 		<form action="{% url 'submit_registro' cedi_select pais_select campania_select contacto.num_dist %}" method="post">
 			{% csrf_token %}
-			<!------------------ SECCION INFORMATIVA------------------------>
-			<div class="container form-control mt-4 mb-2" style="background-color:rgba(255,255,255,0.7);">
+			<!------------------ SECCIÓN INFORMATIVA------------------------>
+			<div class="container form-control mt-3 mb-2" style="background-color:rgba(255,255,255,0.7);">
 				<div class="row">
 					<div class="col">
 						<label class="fw-bold" for="">País:</label>
@@ -47,8 +51,8 @@
 			</div>
 			{% endcomment %}
 
-			<!------------------ SECCION INFO CONTACTO ------------------------>
-			<div class="container form-control ps-3 pe-3 mt-4" style="background-color:rgba(255,255,255,0.7);">
+			<!------------------ SECCIÓN INFO CONTACTO ------------------------>
+			<div class="container form-control ps-3 pe-3 mt-3" style="background-color:rgba(255,255,255,0.7);">
 				<div class="row">
 					<div class="border col-4">
 						<label class="fw-bold" for="">Número de distribuidor:</label>
@@ -120,7 +124,7 @@
 			</div>
 
 
-			<div class="container mt-4 pb-2 rounded-3" style="background-color:rgba(255,255,255,0.7);">
+			<div class="container mt-3 pb-2 rounded-3" style="background-color:rgba(255,255,255,0.7);">
 				<!------------------ Checkbox Remarcar ------------------------>
 				<div class="pt-2 row justify-content-center">
 					<div class="col-1 text-center">
@@ -167,7 +171,7 @@
 			<!------------------ BOTON ENVIAR ------------------------>
 			<div class="container col-1 mt-3 mb-3">
 				<div class="row justify-content-center">
-					<input class="form-control btn btn-warning" type="submit" value="Enviar">
+					<input class="form-control btn fw-bold" type="submit" value="Enviar" id="btn-enviar">
 				</div>
 			</div>
 		</form>
