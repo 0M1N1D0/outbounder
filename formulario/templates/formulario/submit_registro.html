@@ -35,9 +35,16 @@
             >{{ total_exitosos }}</li>
           </ul>
           <div class="card-body text-center">
-            <a class="btn btn-primary"
-               href="{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Nuevo
-              Contacto</a>
+            <div class="container col-9">
+              <div class="row">
+                <a class="btn btn-primary"
+                   href="{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Nuevo
+                Contacto</a>
+              </div>
+              <div class="row mt-2">
+                <a class="btn btn-danger" href="{% url 'index' %}">Salir</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -60,7 +67,7 @@
             </div>
           </div>
           <div class="row justify-content-center mb-2">
-            <a href="{% url 'index' %}" class="btn btn-primary" style="width: 10rem;">Regresar</a>
+            <a href="{% url 'index' %}" class="btn btn-danger" style="width: 10rem;">Salir</a>
           </div>
         </div>
       </div>

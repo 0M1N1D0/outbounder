@@ -2,7 +2,8 @@ from tkinter.messagebox import NO
 from django.http import Http404
 from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import render
-from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
+from campanias.models import Campania, Cedi, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup, \
+	Controlador
 
 
 # Create your views here.
@@ -51,11 +52,18 @@ def formulario(request):
 # ##############################################
 # VISTA SUBMIT REGISTRO
 # ##############################################
-# El nombre del parámetro deberá ser igual en la vista y en la url, sino 
+# El nombre del parámetro deberá ser igual en la vista y en la url, si no
 # desatará un error de submit_registro() got an unexpected keyword argument
 def submit_registro(request, cedis, pais, campania, num_dist):
 	# * de esta forma no es posible porque da error al no marcar el check
 	# * check = request.POST['check_remarcar']
+
+	# borra el contacto del Controlador de la campaña a la que pertenece
+	Controlador.objects.filter(
+		pais=pais).filter(cedi=cedis).filter(campania=campania).get(
+		num_dist=num_dist).delete()
+	# en_sesion = Controlador.objects.get(num_dist=num_dist)
+	# en_sesion.contactado = True
 
 	# obtención de datos
 	check = request.POST.get('check_remarcar')
@@ -249,7 +257,33 @@ def consulta(pais, cedi, campania):
 		# los devuelve. Si no, devuelve el contacto más antiguo (que se
 		# ingresó primero) que esté en el modelo Resultado
 		if remarcar_excluidos.count() > 0:
-			return remarcar_excluidos[0]
+
+			# guarda el contacto candidato para llamar
+			candidato = remarcar_excluidos[0]
+			print('candidato id:', candidato.pais, candidato.cedis, candidato.campania)
+			# revisa que el contacto ya exista en el modelo Controlador y que pertenezca a su can
+			existe_en_controlador = Controlador.objects.filter(
+				pais=pais_select).filter(cedi=cedi_select).filter(campania=campania_select).filter(
+				num_dist=candidato).exists()
+
+			# si ya existe en el Controlador, guarda los contactos que aún no están ahí en la
+			# variable siguientes, después toma el primero de ellos (siguiente = siguientes[0]),
+			# lo guarda en controlador y lo regresa para ser usado en el context
+			if existe_en_controlador:
+				print("sí está")
+				siguientes = remarcar_excluidos.exclude(num_dist__in=Controlador.objects.values('num_dist'))
+				print("excluidos: ", siguientes)
+				siguiente = siguientes[0]
+				Controlador(num_dist=siguiente, pais=pais_select, cedi=cedi_select, campania=campania_select).save()
+				print("siguiente[0]: ", siguiente)
+				return siguiente
+			# si el candidato no está en el Controlador, lo guarda ahí y lo retorna
+			else:
+				print("no está")
+
+				Controlador(num_dist=candidato, pais=pais_select, cedi=cedi_select, campania=campania_select).save()
+				return candidato
+
 		elif por_remarcar.count() > 0:
 			i = por_remarcar.earliest('ultima_interaccion')
 			return i

@@ -4,7 +4,6 @@
 // let check_btn_1 = document.getElementById('check_btn_1');
 // let regis_exitoso = document.getElementById('regis_exitoso');
 // let regis_no_exitoso = document.getElementById('regis_no_exitoso');
-
 document.getElementById('regis_no_exitoso').style.visibility = "hidden"; //= true;
 
 //check_btn_1.style.backgroundColor ="#0d6efd";

@@ -213,6 +213,20 @@ class Backup(models.Model):
             return self.num_dist
 
 
+class Controlador(models.Model):
+    num_dist = models.CharField(max_length=20, verbose_name='Número de eO')
+    campania = models.CharField(verbose_name='campaña', max_length=200)
+    cedi = models.CharField(max_length=200)
+    pais = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = 'Controlador'
+        verbose_name_plural = 'Controladores'
+
+    def __str__(self):
+        return self.num_dist
+
+
 """
 MéTODO PARA USAR UN CAMPO de una tabla many to many en list_display
 
