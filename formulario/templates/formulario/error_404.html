@@ -15,9 +15,11 @@
 </head>
 <body>
 
+<style>body {background-image:url({% static 'formulario/img/fondoformulario.png' %});}</style>
+
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="card border border-4" style="width: 30rem;">
+    <div class="card border border-2" style="width: 30rem; background-color:rgba(255,255,255,0.7);">
       <!--
                 <div class="row justify-content-center">
                                         <img src="{% static 'formulario\img\danger.png' %}" class="card-img-top" style="width: 10rem;">
@@ -26,12 +28,14 @@
       <div class="row justify-content-center">
         <div class="card-body">
           <h4 class="card-title text-center">No existen registros</h4>
-          <p class="card-text">La consulta que realiste no contiene ningún registro. Vuelve a intentarlo con otras
-            opciones.</p>
+          <p class="card-text">La consulta que realizaste no contiene ningún contacto, o los contactos
+            faltantes ya están siendo atendidos por agentes.</p>
+          <hr>
+          <p>Vuelve a intentarlo más tarde o con otras opciones.</p>
         </div>
       </div>
       <div class="row justify-content-center mb-2">
-        <a href="{% url 'index' %}" class="btn btn-primary" style="width: 10rem;">Regresar</a>
+        <a href="{% url 'index' %}" class="btn btn-danger" style="width: 10rem;">Regresar</a>
       </div>
     </div>
   </div>

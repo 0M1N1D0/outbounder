@@ -233,20 +233,23 @@ def consulta(pais, cedi, campania):
 	descripcion_campania = Campania.objects.get(nombre=campania_select)  # .values('descripcion')
 	# print(descripcion_campania)
 
-	# obtiene los querysets de los contactos que son de la campaña y cedis seleccionado
+	# obtiene los contactos que son de la campaña y cedis seleccionado y pais
 	lista_contactos = Contacto.objects.filter(campania=campania_select).filter(cedis=cedi_select).filter(
 		pais=pais_select)
 	# lista_contactos = get_object_or_404(campania=campania_select).filter(cedis=cedi_select)
 
-	# devuelve los querysets de la lista_contactos que están en el campo contacto de tabla Resultado y
-	# sobre de ellos filtra los que están por remarcar
+	# obtiene los contactos de la campaña y cedis seleccionados que están en la tabla Resultado con remarcar true
 	por_remarcar = Resultado.objects.filter(contacto__in=lista_contactos).filter(remarcar=True)
 
-	# devuelve los querysets de los contactos seleccionados que no están aún en la tabla Resultado
+	# obtiene los contactos de la campaña y cedis seleccionados que aún no están en la tabla Resultado
 	sin_marcar = lista_contactos.exclude(id__in=Resultado.objects.values('contacto'))
 
+	# de los contactos de la campaña y cedis seleccionados que aún no están en la tabla Resultado, filtra los que
+	# pertenecen a la campaña y CEDIS seleccionados
 	remarcar_excluidos = sin_marcar.filter(cedis=cedi_select).filter(campania=campania_select)
 
+	# obtiene los que no están en controlador
+	remarcar_excluidos = remarcar_excluidos.exclude(num_dist__in=Controlador.objects.values('num_dist'))
 	# si en la tabla Contactos hay contactos que aún no existen en la tabla Resultado,
 	# devuelve uno de ellos, sino, devuelve un contacto que está en la tabla resultado
 	# con el campo remarcar como True
@@ -260,7 +263,7 @@ def consulta(pais, cedi, campania):
 
 			# guarda el contacto candidato para llamar
 			candidato = remarcar_excluidos[0]
-			print('candidato id:', candidato.pais, candidato.cedis, candidato.campania)
+
 			# revisa que el contacto ya exista en el modelo Controlador y que pertenezca a su can
 			existe_en_controlador = Controlador.objects.filter(
 				pais=pais_select).filter(cedi=cedi_select).filter(campania=campania_select).filter(
@@ -270,23 +273,47 @@ def consulta(pais, cedi, campania):
 			# variable siguientes, después toma el primero de ellos (siguiente = siguientes[0]),
 			# lo guarda en controlador y lo regresa para ser usado en el context
 			if existe_en_controlador:
-				print("sí está")
+				# print("sí está")
 				siguientes = remarcar_excluidos.exclude(num_dist__in=Controlador.objects.values('num_dist'))
-				print("excluidos: ", siguientes)
+				# print("excluidos: ", siguientes)
 				siguiente = siguientes[0]
 				Controlador(num_dist=siguiente, pais=pais_select, cedi=cedi_select, campania=campania_select).save()
-				print("siguiente[0]: ", siguiente)
+				# print("siguiente[0]: ", siguiente)
 				return siguiente
 			# si el candidato no está en el Controlador, lo guarda ahí y lo retorna
 			else:
-				print("no está")
+				# print("no está")
 
 				Controlador(num_dist=candidato, pais=pais_select, cedi=cedi_select, campania=campania_select).save()
 				return candidato
 
 		elif por_remarcar.count() > 0:
-			i = por_remarcar.earliest('ultima_interaccion')
-			return i
+			print('por_remarcar: ', por_remarcar)
+
+			candidato = por_remarcar.earliest('ultima_interaccion')
+			print('candidato: ', candidato)
+
+			existe_en_controlador = Controlador.objects.filter(
+				pais=pais_select).filter(cedi=cedi_select).filter(campania=campania_select).filter(
+				num_dist=candidato).exists()
+
+			if existe_en_controlador:
+				a = Contacto.objects.filter(num_dist__in=por_remarcar.values('contacto__num_dist'))
+				# print("sí está")
+				# por_remarcar.values('contacto__num_dist')
+				siguientes = a.exclude(num_dist__in=Controlador.objects.values('num_dist'))
+				# print("excluidos: ", siguientes)
+				siguientes_en_resultado = Resultado.objects.filter(contacto__in=siguientes)
+				siguiente = siguientes_en_resultado.earliest('ultima_interaccion')
+				Controlador(num_dist=siguiente, pais=pais_select, cedi=cedi_select, campania=campania_select).save()
+				# print("siguiente[0]: ", siguiente)
+				return siguiente
+
+			else:
+				# print("no está")
+
+				Controlador(num_dist=candidato, pais=pais_select, cedi=cedi_select, campania=campania_select).save()
+				return candidato
 
 	contacto = contacto_pormarcar()
 	# print('contacto: ', contacto)
