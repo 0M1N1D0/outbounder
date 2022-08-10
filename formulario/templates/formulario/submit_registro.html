@@ -35,9 +35,16 @@
             >{{ total_exitosos }}</li>
           </ul>
           <div class="card-body text-center">
-            <a class="btn btn-primary"
-               href="{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Nuevo
-              Contacto</a>
+            <div class="container col-9">
+              <div class="row">
+                <a class="btn btn-primary"
+                   href="{% url 'formulario2' pais cedis campania registros_totales total_no_exitosos total_exitosos %}">Nuevo
+                Contacto</a>
+              </div>
+              <div class="row mt-2">
+                <a class="btn btn-danger" href="{% url 'index' %}">Salir</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -48,7 +55,7 @@
     <!-- CARD BOOTSTRAP ELSE -->
     <div class="container mt-5">
       <div class="row justify-content-center">
-        <div class="card border border-4" style="width: 30rem; background-color:rgba(255,255,255,0.7);">
+        <div class="card border border-2" style="width: 30rem; background-color:rgba(255,255,255,0.7);">
           <div class="row justify-content-center">
             <img src="{% static 'formulario/img/warning.png' %}" class="card-img-top" style="width: 10rem;">
           </div>
@@ -56,11 +63,13 @@
             <div class="card-body">
               <h4 class="card-title text-center">Contactos agotados</h4>
               <p class="card-text">Contactos con estatus <em>remarcar</em> agotados en campaña: <em>{{ campania }}</em>,
-                CEDIS: <em>{{ cedis }}</em>. Selecciona una nueva campaña y CEIDS.</p>
+                CEDIS: <em>{{ cedis }}</em>.</p>
+              <hr>
+              <p>Selecciona una nueva campaña y CEDIS.</p>
             </div>
           </div>
           <div class="row justify-content-center mb-2">
-            <a href="{% url 'index' %}" class="btn btn-primary" style="width: 10rem;">Regresar</a>
+            <a href="{% url 'index' %}" class="btn btn-danger" style="width: 10rem;">Salir</a>
           </div>
         </div>
       </div>

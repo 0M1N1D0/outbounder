@@ -1,10 +1,12 @@
+
 {% extends 'formulario/formulario_base.html' %}
 {% block title %}Formulario outbounder{% endblock title %}
 
 {% load static %}
 
-
 {% block content %}
+
+
 <link rel="stylesheet" href="{% static 'formulario/css/btn-enviar-form.css' %}">
   <!------------------ SECCIÓN FORMULARIO------------------------>
   <body>
@@ -165,13 +167,13 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-5 mt-3">
-          <!------------------ SELECCION DE COMENTARIO ------------------------>
+          <!------------------ SELECCIÓN DE COMENTARIO ------------------------>
           <textarea class="form-control" placeholder="Deja tus comentarios aquí" name="textarea" rows="5"
                     cols="50"></textarea>
         </div>
       </div>
     </div>
-    <!------------------ BOTON ENVIAR ------------------------>
+    <!------------------ BOTÓN ENVIAR ------------------------>
     <div class="container col-1 mt-3 mb-3">
       <div class="row justify-content-center">
         <input class="form-control btn fw-bold" type="submit" value="Enviar" id="btn-enviar">

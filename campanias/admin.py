@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup
+from .models import Cedi, Campania, Contacto, Pais, Resultado, RegistroExitoso, RegistroNoExitoso, Backup, Controlador
 from import_export.admin import ImportExportMixin, ExportMixin
 from import_export import resources # para exportar a excel desde el admin site
 
@@ -7,6 +7,7 @@ from import_export import resources # para exportar a excel desde el admin site
 # admin.site.register(Estado)
 admin.site.register(RegistroNoExitoso)
 admin.site.register(RegistroExitoso)
+admin.site.register(Controlador)
 #admin.site.register(Resultado)
 
 # ***************** REGISTROS CON CLASE *******************
